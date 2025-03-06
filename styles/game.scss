@@ -1,0 +1,10 @@
+@use "./_shared" as *;
+
+.game-container {
+    @include body-container;
+    & {
+        height: 88vh;
+    }
+
+
+}

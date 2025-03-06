@@ -1,0 +1,22 @@
+@use "./_shared" as *;
+
+.menu-container {
+    @include body-container;
+    & {
+        height: 88vh;
+    }
+
+    & button {
+        @include primary-button;
+
+        & .key {
+            @include keybind;
+        }
+
+        &.keydown {
+            background-color: rgba(235,192,131,1);
+            box-shadow: none;
+            transform: translateY(4px)
+        }
+    }
+}

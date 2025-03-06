@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import useKeyHandler from "./hooks/useKeyHandler";
+import useGameLogic from "./hooks/useGameLogic";
+import BottomPanel from "./BottomPanel";
+import MainMenu from "./MainMenu";
+import Instructions from "./Instructions";
+import Game from "./Game";
+import "../styles/_shared.scss"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [gameState, setGameState] = useState("menu")
+  const [pressedKeys, setPressedKeys] = useState([])
+  const [bankBalance, setBankBalance] = useState(1000)
+  const [bet, setBet] = useState([])
+  const [dealerHand, setDealerHand] = useState({})
+  const [playerHand, setPlayerHand] = useState({})
 
+  // Use key press hook
+  useKeyHandler(gameState, setGameState, setPressedKeys, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand)
+  // console.log("Pressed keys:",pressedKeys)
+  console.log("Gamestate:",gameState)
+
+  useGameLogic(gameState, setGameState, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand)
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <MainMenu
+        gameState={gameState}
+        setGameState={setGameState}
+        pressedKeys={pressedKeys}
+      />
+      <Instructions 
+        gameState={gameState}
+        setGameState={setGameState}
+      />
+      <Game 
+        gameState={gameState}
+        setGameState={setGameState}
+        bet={bet}
+      />
+      <BottomPanel
+        gameState={gameState}
+        bankBalance={bankBalance}
+      />
     </>
   )
 }
 
-export default App
+export default App;
