@@ -34,43 +34,69 @@ h1 {
     font-size: $large;
 }
 
-$white: rgba(252,251,252,1);
+// Colors -----------------------------------------------------------
 $black: rgba(21,15,31,1);
+$white: rgba(252,251,252,1);
+$white_darkened: rgba(188,204,215,1);
 $orange: rgba(255,215,148,1);
+$orange_darkened: rgba(235,192,131,1);
+$blue: rgba(70,83,158,1);
+$blue_darkened: rgba(52,66,146,1);
+$navy: rgba(10,58,84);
+$red: rgba(215,63,71,1);
+$red_darkened: rgba(151,48,53,1);
+$green: rgba(0,128,85);
+$green_darkened: rgba(2,104,70);
+$purple: rgba(129,31,153);
+$purple_darkened: rgba(109,24,130,1);
 
-@mixin primary-button {
-    background-color: $orange;
-    color: $black;
-    font-family: $bold;
-    font-size: $semiLarge;
-    border-style: none;
-    border-radius: 6px;
-    width: 100%;
-    padding: 0.75rem 0rem;
-    box-shadow: 0px 4px 0px 0px rgba(235,192,131,1);
+// Mixins -----------------------------------------------------------
+
+@mixin chip-button-container {
+    background-image: url("./../wood.webp");
+    background-size: cover;
     position: relative;
+    border-style: none;
+    border-radius: 10px;
+    color: $white;
+    font-family: $medium;
+}
+
+@mixin chip-button {
+    margin: 0.5rem;
+    border-style: solid;
+    border-width: 4px;
+    background-color: $white;
+    color: $black;
+    border-radius: 100px;
+    height: 4rem;
+    width: 4rem;
     transition: all ease-in-out 0.2s;
 
-    &:active {
-        background-color: rgba(235,192,131,1);
+    & .icon {
+        font-size: 1.75rem;
+    }
+    
+    &.purple {
+        border-color: $purple;
+        box-shadow: 0px 2px 0px 0px $purple_darkened;
+    }
+    &.blue {
+        border-color: $blue;
+        box-shadow: 0px 2px 0px 0px $blue_darkened;
+    }
+
+    &:active,
+    &.keydown {
+        background-color: $white_darkened;
         box-shadow: none;
         transform: translateY(4px)
     }
 }
 
-@mixin keybind {
-    position: absolute;
-    top: 2px;
-    left: 4px;
-    font-size: $small;
-    font-family: $medium;
-}
-
 @mixin body-container {
     max-width: 92%;
     margin: 0rem auto;
-    // background-color: aqua;
-    // border: 8px solid red;
 
     @media screen and (min-width: 992px) {
         max-width: 60%;

@@ -1,22 +1,53 @@
 @use "./_shared" as *;
 
 .menu-container {
-    @include body-container;
-    & {
-        height: 88vh;
-    }
+	@include body-container;
+	& {
+		height: 88vh;
+	}
 
-    & button {
-        @include primary-button;
+	// & .primarybutton {
+	// 	@include primary-button;
 
-        & .key {
-            @include keybind;
-        }
+	// 	& .key {
+	// 		@include keybind;
+	// 	}
+	// }
 
-        &.keydown {
-            background-color: rgba(235,192,131,1);
-            box-shadow: none;
-            transform: translateY(4px)
-        }
-    }
+	& .logo {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-size: 3rem;
+		margin: 8rem auto 1rem;
+		color: $white;
+	}
+
+	// & .exit-button {
+	// 	@include escape-button;
+	// }
+
+	& .menu-options {
+		display: flex;
+		justify-content: center;
+		gap: 0.5rem;
+		align-items: center;
+		position: absolute;
+		bottom: 0;
+		margin-bottom: calc(10vh + 1rem);
+		left: 50%;
+  		transform: translateX(-50%);
+
+		// .chip-container {
+		// 	@include chip-button-container;
+
+		// 	// & .key {
+		// 	// 	@include keybind;
+		// 	// }
+
+		// 	& .chip-button {
+		// 		@include chip-button;
+		// 	}
+		// }
+	}
 }

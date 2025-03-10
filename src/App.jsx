@@ -9,6 +9,7 @@ import "../styles/_shared.scss"
 
 function App() {
   const [gameState, setGameState] = useState("menu")
+  const [soundState, setSoundState] = useState(true)
   const [pressedKeys, setPressedKeys] = useState([])
   const [bankBalance, setBankBalance] = useState(1000)
   const [bet, setBet] = useState([])
@@ -16,21 +17,24 @@ function App() {
   const [playerHand, setPlayerHand] = useState({})
 
   // Use key press hook
-  useKeyHandler(gameState, setGameState, setPressedKeys, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand)
+  useKeyHandler(gameState, setGameState, soundState, setSoundState, setPressedKeys, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand)
   // console.log("Pressed keys:",pressedKeys)
-  console.log("Gamestate:",gameState)
+  // console.log("Gamestate:",gameState)
 
-  useGameLogic(gameState, setGameState, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand)
+  useGameLogic(gameState, setGameState, soundState, setSoundState, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand)
   return (
     <>
       <MainMenu
         gameState={gameState}
         setGameState={setGameState}
+        soundState={soundState}
+        setSoundState={setSoundState}
         pressedKeys={pressedKeys}
       />
       <Instructions 
         gameState={gameState}
         setGameState={setGameState}
+        pressedKeys={pressedKeys}
       />
       <Game 
         gameState={gameState}

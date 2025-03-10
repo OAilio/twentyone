@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import useGameLogic from "./useGameLogic";
 
-function useKeyHandler(gameState, setGameState, setPressedKeys, bankBalance, setBankBalance, bet, setBet){
-  const { startGame, returnMainMenu, placeChip, openInstructions, dealInitialHands, removeLastChip } = useGameLogic(setGameState, bankBalance, setBankBalance, bet, setBet,);
+function useKeyHandler(gameState, setGameState, soundState, setSoundState, setPressedKeys, bankBalance, setBankBalance, bet, setBet){
+  const { startGame, toggleSound, returnMainMenu, placeChip, openInstructions, dealInitialHands, removeLastChip } = useGameLogic(setGameState, soundState, setSoundState, bankBalance, setBankBalance, bet, setBet,);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      setPressedKeys((previousKeys) => 
+      setPressedKeys((previousKeys) =>
         previousKeys.includes(event.key) ? previousKeys : [...previousKeys, event.key]
       )
     }
@@ -29,6 +29,9 @@ function useKeyHandler(gameState, setGameState, setPressedKeys, bankBalance, set
         case ("7"):
           openInstructions()
           break
+        case ("8"):
+          toggleSound()
+          break       
         default:
           break
         }
@@ -64,7 +67,7 @@ function useKeyHandler(gameState, setGameState, setPressedKeys, bankBalance, set
       window.removeEventListener("keydown", handleKeyPress)
       window.removeEventListener("keyup", handleKeyRelease)
     };
-  },[gameState, setGameState, setPressedKeys, startGame, returnMainMenu, bet, placeChip, bankBalance, openInstructions, dealInitialHands, removeLastChip])
+  },[gameState, setGameState, setPressedKeys, startGame, returnMainMenu, bet, placeChip, bankBalance, openInstructions, dealInitialHands, removeLastChip, toggleSound])
 }
 
 export default useKeyHandler;

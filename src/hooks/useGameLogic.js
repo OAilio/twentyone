@@ -1,8 +1,12 @@
 /* eslint-disable no-unused-vars */
-function useGameLogic(setGameState, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand){
+function useGameLogic(setGameState, soundState, setSoundState, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand){
   function startGame(){
     setGameState("betting")
     console.log("Starting new game")
+  }
+
+  function toggleSound(){
+    setSoundState(!soundState)
   }
 
   function openInstructions(){
@@ -19,8 +23,6 @@ function useGameLogic(setGameState, bankBalance, setBankBalance, bet, setBet, de
   }
 
   function returnMainMenu(){
-    console.log("Returning to main menu")
-    console.log("Bet array:",bet)
     setGameState("menu")
     console.log("Returning to main menu")
     console.log("Bet array:",bet)
@@ -42,7 +44,7 @@ function useGameLogic(setGameState, bankBalance, setBankBalance, bet, setBet, de
     setBankBalance(bankBalance+bet[bet.length-1])
     setBet((currentBet) => currentBet.slice(0,-1))
   }
-  return ({ startGame, openInstructions, returnMainMenu, placeChip, dealInitialHands, removeLastChip })
+  return ({ startGame, toggleSound, openInstructions, returnMainMenu, placeChip, dealInitialHands, removeLastChip })
 };
 
 export default useGameLogic

@@ -1,0 +1,104 @@
+@use "./_shared" as *;
+
+@mixin keybind {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: $small;
+    font-family: $medium;
+}
+
+.primary-button {
+    background-color: $orange;
+    color: $black;
+    font-family: $bold;
+    font-size: $semiLarge;
+    border-style: none;
+    border-radius: 6px;
+    width: 100%;
+    padding: 0.75rem 0rem;
+    box-shadow: 0px 4px 0px 0px $orange_darkened;
+    position: relative;
+    transition: all ease-in-out 0.2s;
+
+    &:active,
+    &.keydown {
+        background-color: $orange_darkened;
+        box-shadow: none;
+        transform: translateY(4px);
+    }
+
+    & .key {
+        @include keybind;
+    }
+}
+
+.escape-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem; 
+    border: none;
+    border-radius: 10px;
+    width: 4rem;
+    height: 3rem;
+    font-family: $medium;
+    background-color: transparent;
+    color: $white_darkened;
+    transition: all ease-in-out 0.2s;
+
+    & .icon {
+        font-size: 1.75rem;
+    }
+
+    &:active,
+    &.keydown {
+        background-color: $navy;
+    }
+}
+
+.chip-button-container{
+    background-image: url("./../wood.webp");
+    background-size: cover;
+    position: relative;
+    border-style: none;
+    border-radius: 10px;
+    color: $white;
+    font-family: $medium;
+
+    & .key {
+        @include keybind;
+    }
+
+    & .chip-button {
+        margin: 0.5rem;
+        border-style: solid;
+        border-width: 4px;
+        background-color: $white;
+        color: $black;
+        border-radius: 100px;
+        height: 4rem;
+        width: 4rem;
+        transition: all ease-in-out 0.2s;
+
+        & .icon {
+            font-size: 1.75rem;
+        }
+        
+        &.purple {
+            border-color: $purple;
+            box-shadow: 0px 2px 0px 0px $purple_darkened;
+        }
+        &.blue {
+            border-color: $blue;
+            box-shadow: 0px 2px 0px 0px $blue_darkened;
+        }
+
+        &:active,
+        &.keydown {
+            background-color: $white_darkened;
+            box-shadow: none;
+            transform: translateY(4px)
+        }
+    }
+}

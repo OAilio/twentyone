@@ -1,14 +1,24 @@
 import PropTypes from "prop-types";
+// import useGameLogic from "./hooks/useGameLogic";
+import EscapeButton from "./EscapeButton";
+import "../styles/mainMenu.scss"
 
-function Instructions({ gameState, setGameState }){
+function Instructions({ gameState, setGameState, pressedKeys }){
+  // const { returnMainMenu } = useGameLogic(setGameState);
+
   if (gameState !== "instructions"){
     return null
   }
 
   return(
     <>
-      <h1>Instructions lol</h1>
-      <button onClick={() => setGameState("menu")}>Back to menu</button>
+      <div className="menu-container">
+        <EscapeButton 
+          pressedKeys={pressedKeys}
+          setGameState={setGameState}
+        />
+        <h1>Instructions lol</h1>      
+      </div>
     </>
   )
 }
@@ -16,6 +26,7 @@ function Instructions({ gameState, setGameState }){
 Instructions.propTypes = {
   gameState: PropTypes.string.isRequired,
   setGameState: PropTypes.func.isRequired,
+  pressedKeys: PropTypes.array.isRequired
 }
 
 export default Instructions
