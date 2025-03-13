@@ -18,20 +18,20 @@ $semiLarge: 1.5rem;
 $normal: 1.25rem;
 $small: 1rem;
 
-
 body {
     background-image: url("./../velvet.webp");
     background-size: cover;
     background-color: rgba(21,102,131,0.70);
     background-blend-mode: lighten;
     background-repeat: repeat;
-    height: 100vh;
+    height: 100%;
     width: 100%;
 }
 
 h1 {
     font-family: $bold;
     font-size: $large;
+    text-shadow: 0px 4px 0px rgba(0,0,0,0.25);
 }
 
 // Colors -----------------------------------------------------------
@@ -51,49 +51,6 @@ $purple: rgba(129,31,153);
 $purple_darkened: rgba(109,24,130,1);
 
 // Mixins -----------------------------------------------------------
-
-@mixin chip-button-container {
-    background-image: url("./../wood.webp");
-    background-size: cover;
-    position: relative;
-    border-style: none;
-    border-radius: 10px;
-    color: $white;
-    font-family: $medium;
-}
-
-@mixin chip-button {
-    margin: 0.5rem;
-    border-style: solid;
-    border-width: 4px;
-    background-color: $white;
-    color: $black;
-    border-radius: 100px;
-    height: 4rem;
-    width: 4rem;
-    transition: all ease-in-out 0.2s;
-
-    & .icon {
-        font-size: 1.75rem;
-    }
-    
-    &.purple {
-        border-color: $purple;
-        box-shadow: 0px 2px 0px 0px $purple_darkened;
-    }
-    &.blue {
-        border-color: $blue;
-        box-shadow: 0px 2px 0px 0px $blue_darkened;
-    }
-
-    &:active,
-    &.keydown {
-        background-color: $white_darkened;
-        box-shadow: none;
-        transform: translateY(4px)
-    }
-}
-
 @mixin body-container {
     max-width: 92%;
     margin: 0rem auto;
@@ -103,10 +60,22 @@ $purple_darkened: rgba(109,24,130,1);
     }
 
     @media screen and (min-width: 1145px) {
-        max-width: 45%;
+        max-width: 40%;
     }
 
     @media screen and (min-width: 1300px) {
-        max-width: 50rem;
+        max-width: 40rem;
     }
+}
+
+@mixin options-container {
+    width: 21.5rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: calc(10vh + 1rem);
+    left: 50%;
+    transform: translateX(-50%);
 }

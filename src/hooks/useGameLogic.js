@@ -1,50 +1,53 @@
-/* eslint-disable no-unused-vars */
-function useGameLogic(setGameState, soundState, setSoundState, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand){
-  function startGame(){
-    setGameState("betting")
-    console.log("Starting new game")
+function useGameLogic(dispatch){
+  function startGame() {
+    dispatch({ type: "setGameState", payload: "betting" });
   }
 
   function toggleSound(){
-    setSoundState(!soundState)
+    dispatch({ type: "toggleSound" })
   }
 
   function openInstructions(){
-    setGameState("instructions")
+    dispatch({ type: "setGameState", payload: "instructions"})
     console.log("Open instructions")
   }
 
-  function startNewRound(){
-    setGameState("betting")
-    setDealerHand({})
-    setPlayerHand({})
-    setBet({})
-    console.log("Starting new game")
-  }
-
   function returnMainMenu(){
-    setGameState("menu")
-    console.log("Returning to main menu")
-    console.log("Bet array:",bet)
+    dispatch({ type: "setGameState", payload: "menu"})
+    dispatch({ type: "clearHands"})
+    dispatch({ type: "clearBet"})
+    dispatch({ type: "resetBankBalance"})
   }
 
   function placeChip(chipValue){
-    setBet((currentBet) => [...currentBet, chipValue])
-    setBankBalance(bankBalance-chipValue)
-    console.log("Placed bet:", chipValue)
-    console.log("Current bet:", bet.reduce((total, chip) => total + chip, 0))
-    console.log("Bet array:",bet)
+    dispatch({ type: "placeChip", payload: chipValue})
+  }
+
+  function drawCard(targetHand){
+    dispatch({ type: "drawCard", payload: targetHand });
   }
 
   function dealInitialHands(){
-    console.log("Hands dealt!")
+    dispatch({ type: "setGameState", payload: "cardplay"})
+    dispatch({ type: "drawCard", payload: "player" });
+    dispatch({ type: "drawCard", payload: "dealer" });
+    dispatch({ type: "drawCard", payload: "player" });
+    dispatch({ type: "drawCard", payload: "dealer" });
   }
 
   function removeLastChip(){
-    setBankBalance(bankBalance+bet[bet.length-1])
-    setBet((currentBet) => currentBet.slice(0,-1))
+    dispatch({ type: "removeChip"})
   }
-  return ({ startGame, toggleSound, openInstructions, returnMainMenu, placeChip, dealInitialHands, removeLastChip })
+  return ({ 
+    startGame,
+    toggleSound,
+    openInstructions,
+    returnMainMenu,
+    placeChip,
+    removeLastChip,
+    dealInitialHands,
+    drawCard
+  })
 };
 
 export default useGameLogic

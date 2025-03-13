@@ -82,7 +82,8 @@
         transition: all ease-in-out 0.2s;
 
         & .icon {
-            font-size: 1.75rem;
+            font-family: $bold;
+            font-size: 0.75rem;
         }
         
         &.purple {
@@ -92,6 +93,52 @@
         &.blue {
             border-color: $blue;
             box-shadow: 0px 2px 0px 0px $blue_darkened;
+
+            &.chip {
+                background-color: $blue;
+                color: $white;
+                
+                & .icon {
+                    font-size: $semiLarge;
+                }
+            }
+        }
+        &.red {
+            border-color: $red;
+            box-shadow: 0px 2px 0px 0px $red_darkened;
+
+            &.chip {
+                background-color: $red;
+                color: $white;
+                
+                & .icon {
+                    font-size: $semiLarge;
+                }
+            }
+        }
+
+        &.green {
+            border-color: $green;
+            box-shadow: 0px 2px 0px 0px $green_darkened;
+
+            &.chip {
+                background-color: $green;
+                color: $white;
+                
+                & .icon {
+                    font-size: $semiLarge;
+                }
+            }
+        }
+
+        &.white {
+            border: none;
+            box-shadow: 0px 2px 0px 0px $white_darkened;
+            color: $blue;
+
+            & .icon {
+                font-size: $semiLarge;
+            }
         }
 
         &:active,

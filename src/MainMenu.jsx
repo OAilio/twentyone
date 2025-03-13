@@ -1,3 +1,5 @@
+// import { initialState, reducer } from "./hooks/twentyoneReducer";
+// import { useReducer } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestion, faVolumeHigh, faVolumeXmark } from "@fortawesome/free-solid-svg-icons";
@@ -6,19 +8,22 @@ import PrimaryButton from "./PrimaryButton";
 import ChipButton from "./ChipButton";
 import "../styles/mainMenu.scss"
 
-function MainMenu({ gameState, setGameState, soundState, setSoundState, pressedKeys }){
-  const { startGame, openInstructions, toggleSound } = useGameLogic(setGameState, soundState, setSoundState);
+function MainMenu({ state, dispatch }){
+  const { startGame, openInstructions, toggleSound } = useGameLogic(dispatch);
+  const { gameState, soundState, pressedKeys } = state;
 
   if (gameState !== "menu"){
     return null
   }
+
+  
 
   return (
     <>
       <div className="menu-container">
         <div className="logo">
           <span><FontAwesomeIcon icon={faQuestion} className="icon"/></span>
-          <h1>Logo</h1>
+          <h1>TWENTYONE</h1>
         </div>
         <PrimaryButton 
           action={startGame}
@@ -41,6 +46,20 @@ function MainMenu({ gameState, setGameState, soundState, setSoundState, pressedK
             content={soundState ? (<FontAwesomeIcon icon={faVolumeHigh}/>) : (<FontAwesomeIcon icon={faVolumeXmark}/>)}
             color="purple"
           />
+          {/* <ChipButton
+            action={toggleSound}
+            pressedKeys={pressedKeys}
+            buttonKey={"8"}
+            content={soundState ? (<FontAwesomeIcon icon={faVolumeHigh}/>) : (<FontAwesomeIcon icon={faVolumeXmark}/>)}
+            color="purple"
+          />
+          <ChipButton
+            action={toggleSound}
+            pressedKeys={pressedKeys}
+            buttonKey={"8"}
+            content={soundState ? (<FontAwesomeIcon icon={faVolumeHigh}/>) : (<FontAwesomeIcon icon={faVolumeXmark}/>)}
+            color="purple"
+          /> */}
         </div>  
       </div>
     </>
@@ -48,11 +67,8 @@ function MainMenu({ gameState, setGameState, soundState, setSoundState, pressedK
 }
 
 MainMenu.propTypes = {
-  gameState: PropTypes.string.isRequired,
-  setGameState: PropTypes.func.isRequired,
-  soundState: PropTypes.bool.isRequired,
-  setSoundState: PropTypes.func.isRequired,
-  pressedKeys: PropTypes.array.isRequired
+  state: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
 }
 
 export default MainMenu

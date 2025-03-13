@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 import "../styles/bottomPanel.scss"
 
-function BottomPanel({ gameState, bankBalance }){
+function BottomPanel({ state }){
+  const { gameState, bankBalance} = state;
+  
   return (
     <div className="panel-bg">
       <div className="content">
@@ -14,8 +16,7 @@ function BottomPanel({ gameState, bankBalance }){
 }
 
 BottomPanel.propTypes = {
-  gameState: PropTypes.string.isRequired,
-  bankBalance: PropTypes.number.isRequired
+  state: PropTypes.object.isRequired
 }
 
 export default BottomPanel;

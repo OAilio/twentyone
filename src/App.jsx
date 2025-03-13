@@ -1,49 +1,48 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
+import { initialState, reducer } from "./hooks/twentyoneReducer";
 import useKeyHandler from "./hooks/useKeyHandler";
 import useGameLogic from "./hooks/useGameLogic";
 import BottomPanel from "./BottomPanel";
 import MainMenu from "./MainMenu";
 import Instructions from "./Instructions";
-import Game from "./Game";
+import Betting from "./Betting";
 import "../styles/_shared.scss"
+import CardPlay from "./CardPlay";
 
 function App() {
-  const [gameState, setGameState] = useState("menu")
-  const [soundState, setSoundState] = useState(true)
   const [pressedKeys, setPressedKeys] = useState([])
-  const [bankBalance, setBankBalance] = useState(1000)
-  const [bet, setBet] = useState([])
-  const [dealerHand, setDealerHand] = useState({})
-  const [playerHand, setPlayerHand] = useState({})
+  const [state, dispatch] = useReducer(reducer, initialState)
 
-  // Use key press hook
-  useKeyHandler(gameState, setGameState, soundState, setSoundState, setPressedKeys, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand)
-  // console.log("Pressed keys:",pressedKeys)
-  // console.log("Gamestate:",gameState)
+  // Key press hook (key controls)
+  useKeyHandler(state, dispatch, pressedKeys, setPressedKeys);
 
-  useGameLogic(gameState, setGameState, soundState, setSoundState, bankBalance, setBankBalance, bet, setBet, dealerHand, setDealerHand, playerHand, setPlayerHand)
+  // Game/app logic hook (functions)
+  useGameLogic(dispatch);
+
   return (
     <>
       <MainMenu
-        gameState={gameState}
-        setGameState={setGameState}
-        soundState={soundState}
-        setSoundState={setSoundState}
-        pressedKeys={pressedKeys}
+        state={state}
+        // pressedKeys={pressedKeys}
+        dispatch={dispatch}
       />
       <Instructions 
-        gameState={gameState}
-        setGameState={setGameState}
-        pressedKeys={pressedKeys}
+        state={state}
+        // pressedKeys={pressedKeys}
+        dispatch={dispatch}
       />
-      <Game 
-        gameState={gameState}
-        setGameState={setGameState}
-        bet={bet}
+      <Betting 
+        state={state}
+        // pressedKeys={pressedKeys}
+        dispatch={dispatch}
+      />
+      <CardPlay
+        // pressedKeys={pressedKeys}
+        state={state}
+        dispatch={dispatch}
       />
       <BottomPanel
-        gameState={gameState}
-        bankBalance={bankBalance}
+        state={state}
       />
     </>
   )

@@ -16,7 +16,7 @@ ChipButton.propTypes = {
   action: PropTypes.func.isRequired,
   pressedKeys: PropTypes.array.isRequired,
   buttonKey: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.node.isRequired,
   color: PropTypes.string.isRequired
 }
 

@@ -6,48 +6,21 @@
 		height: 88vh;
 	}
 
-	// & .primarybutton {
-	// 	@include primary-button;
-
-	// 	& .key {
-	// 		@include keybind;
-	// 	}
-	// }
-
 	& .logo {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		font-size: 3rem;
-		margin: 8rem auto 1rem;
+		margin: 2rem auto 1rem;
 		color: $white;
 	}
 
-	// & .exit-button {
-	// 	@include escape-button;
-	// }
-
 	& .menu-options {
-		display: flex;
-		justify-content: center;
-		gap: 0.5rem;
-		align-items: center;
-		position: absolute;
-		bottom: 0;
-		margin-bottom: calc(10vh + 1rem);
-		left: 50%;
-  		transform: translateX(-50%);
+		@include options-container;
+		& {justify-content: center;}
 
-		// .chip-container {
-		// 	@include chip-button-container;
-
-		// 	// & .key {
-		// 	// 	@include keybind;
-		// 	// }
-
-		// 	& .chip-button {
-		// 		@include chip-button;
-		// 	}
-		// }
+		& .icon{
+			font-size: 1.75rem;
+		}
 	}
 }

@@ -1,20 +1,23 @@
 import { useEffect } from "react";
 import useGameLogic from "./useGameLogic";
 
-function useKeyHandler(gameState, setGameState, soundState, setSoundState, setPressedKeys, bankBalance, setBankBalance, bet, setBet){
-  const { startGame, toggleSound, returnMainMenu, placeChip, openInstructions, dealInitialHands, removeLastChip } = useGameLogic(setGameState, soundState, setSoundState, bankBalance, setBankBalance, bet, setBet,);
+function useKeyHandler(state, dispatch){
+  const { gameState, bankBalance, bet} = state
+  const { startGame, toggleSound, returnMainMenu, placeChip, openInstructions, dealInitialHands, removeLastChip, getCard: drawCard } = useGameLogic(dispatch);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      setPressedKeys((previousKeys) =>
-        previousKeys.includes(event.key) ? previousKeys : [...previousKeys, event.key]
-      )
+      // setPressedKeys((previousKeys) =>
+        dispatch({ type: "keyPress", payload: event.key})
+        // previousKeys.includes(event.key) ? previousKeys : [...previousKeys, event.key]
+      // )
     }
 
     const handleKeyRelease = (event) => {
-      setPressedKeys((previousKeys) => 
-        previousKeys.filter(key => key !== event.key)
-      )
+      dispatch({ type: "keyRelease", payload: event.key})
+      // setPressedKeys((previousKeys) => 
+      //   previousKeys.filter(key => key !== event.key)
+      // )
 
       if (event.key === "Escape" && gameState !== "menu") {
         returnMainMenu()
@@ -57,6 +60,13 @@ function useKeyHandler(gameState, setGameState, soundState, setSoundState, setPr
         case "6":
           if (bet.length > 0) removeLastChip()
         }
+        break
+      case "cardplay":
+        switch (event.key) {
+        case "4":
+          drawCard("player")
+          break
+        }
       }
     }
 
@@ -67,7 +77,7 @@ function useKeyHandler(gameState, setGameState, soundState, setSoundState, setPr
       window.removeEventListener("keydown", handleKeyPress)
       window.removeEventListener("keyup", handleKeyRelease)
     };
-  },[gameState, setGameState, setPressedKeys, startGame, returnMainMenu, bet, placeChip, bankBalance, openInstructions, dealInitialHands, removeLastChip, toggleSound])
+  },[gameState, startGame, returnMainMenu, bet, placeChip, bankBalance, openInstructions, dealInitialHands, removeLastChip, toggleSound, drawCard, dispatch])
 }
 
 export default useKeyHandler;
