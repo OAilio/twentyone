@@ -4,6 +4,7 @@ import getRandomPosition from "../assets/getRandomPosition"
 
 export const initialState = {
   gameState: "menu",
+  playerTurn: true,
   soundState: true,
   pressedKeys: [],
   bankBalance: 1000,
@@ -42,7 +43,7 @@ export function reducer(state, action) {
       }
 
     case 'removeChip':
-      if (state.bet.length === 0) return state;
+      if (state.bet.length === 0 || state.gameState !== "betting") return state;
       const lastChipValue = state.bet[state.bet.length-1].value
 
       return {
@@ -73,6 +74,9 @@ export function reducer(state, action) {
         bet: [...state.bet, ...state.bet], // Double existing bet array
         bankBalance: state.bankBalance - preDoubleBetTotal // Subtract existing bet again from total
       }
+
+    case 'changeTurn':
+      return {...state, playerTurn: action.payload}
 
     case 'clearBet':
       return {...state, bet: []}

@@ -17,6 +17,8 @@ function useGameLogic(dispatch){
     dispatch({ type: "clearHands"})
     dispatch({ type: "clearBet"})
     dispatch({ type: "resetBankBalance"})
+    dispatch({ type: "changeTurn", payload: true})
+    // Reset deck
   }
 
   function placeChip(chipValue){
@@ -29,25 +31,32 @@ function useGameLogic(dispatch){
 
   function dealInitialHands(){
     dispatch({ type: "setGameState", payload: "cardplay"})
-    dispatch({ type: "drawCard", payload: "player" });
-    dispatch({ type: "drawCard", payload: "dealer" });
-    dispatch({ type: "drawCard", payload: "player" });
-    dispatch({ type: "drawCard", payload: "dealer" });
+    dispatch({ type: "drawCard", payload: "dealer" }); 
+    setTimeout(() => {
+      dispatch({ type: "drawCard", payload: "player" });
+    },200)   
+    setTimeout(() => {
+      dispatch({ type: "drawCard", payload: "dealer" });
+    },400)
+    setTimeout(() => {
+      dispatch({ type: "drawCard", payload: "player" });
+    },600)
   }
 
   function takeDouble(){
-    dispatch ({ type: "doubleBet"})
+    dispatch({ type: "doubleBet"})
     dispatch({ type: "drawCard", payload: "player" });
-    // TODO: end player turn
+    dispatch({ type: "changeTurn", payload: false})
   }
 
   function stand(){
-    // TODO: end player turn
+    dispatch({ type: "changeTurn", payload: false})
   }
     
   function removeLastChip(){
     dispatch({ type: "removeChip"})
   }
+  
   return ({ 
     startGame,
     toggleSound,

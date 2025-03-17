@@ -17,17 +17,11 @@ function useKeyHandler(state, dispatch){
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      // setPressedKeys((previousKeys) =>
-        dispatch({ type: "keyPress", payload: event.key})
-        // previousKeys.includes(event.key) ? previousKeys : [...previousKeys, event.key]
-      // )
+      dispatch({ type: "keyPress", payload: event.key})
     }
 
     const handleKeyRelease = (event) => {
       dispatch({ type: "keyRelease", payload: event.key})
-      // setPressedKeys((previousKeys) => 
-      //   previousKeys.filter(key => key !== event.key)
-      // )
 
       if (event.key === "Escape" && gameState !== "menu") {
         returnMainMenu()
