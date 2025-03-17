@@ -17,11 +17,13 @@ $large: 2rem;
 $semiLarge: 1.5rem;
 $normal: 1.25rem;
 $small: 1rem;
+$minimum: 0.75rem;
 
 body {
-    background-image: url("./../velvet.webp");
+    // background-image: url("./../velvet.webp");
     background-size: cover;
-    background-color: rgba(21,102,131,0.70);
+    // background-color: rgba(21,102,131,0.70);
+    background-color: rgba(16, 81, 117, 1);
     background-blend-mode: lighten;
     background-repeat: repeat;
     height: 100%;
@@ -54,6 +56,7 @@ $purple_darkened: rgba(109,24,130,1);
 @mixin body-container {
     max-width: 92%;
     margin: 0rem auto;
+    padding-top: 2rem;
 
     @media screen and (min-width: 992px) {
         max-width: 60%;
@@ -61,6 +64,7 @@ $purple_darkened: rgba(109,24,130,1);
 
     @media screen and (min-width: 1145px) {
         max-width: 40%;
+        padding-top: 1rem;
     }
 
     @media screen and (min-width: 1300px) {

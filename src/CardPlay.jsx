@@ -2,19 +2,19 @@ import PropTypes from "prop-types";
 import EscapeButton from "./EscapeButton";
 import TableElements from "./TableElements";
 import ChipButton from "./ChipButton"
-import RenderHand from "./Cards";
+import RenderHand from "./RenderHand";
 import useGameLogic from "./hooks/useGameLogic";
 import "../styles/cardplay.scss"
 
 function CardPlay({ state, dispatch }){
-  const { gameState, pressedKeys, bet, dealerHand, playerHand} = state;
-  const { drawCard } = useGameLogic(dispatch);
+  const { gameState, pressedKeys, bet, dealerHand, playerHand, bankBalance} = state;
+  const { drawCard, takeDouble } = useGameLogic(dispatch);
 
   if (gameState !== "cardplay") {
     return null;
   }
 
-  const betTotal = bet.reduce((total, chip) => total + chip, 0)
+  const betTotal = bet.reduce((total, chip) => total + chip.value, 0)
 
   return (
     <div className="game-container">
@@ -23,29 +23,34 @@ function CardPlay({ state, dispatch }){
         dispatch={dispatch}
       />
       <div className="cardplay-content">
-        <TableElements 
+        <RenderHand 
+          hand={dealerHand}
+        />
+        <span className="dealer-score">17</span>
+        <TableElements
+          state={state}
+          dispatch={dispatch}
           betTotal={betTotal}
           gameState={gameState}
         />
         <RenderHand 
-          hand={dealerHand}
-        />
-        <RenderHand 
           hand={playerHand}
         />
+        <span className="player-score">17</span>
         <div className="chip-options">
+          {/* SPLIT IS OUT OF SCOPE FOR NOW */}
           {/* {gameState === "cardplay" && (
             <ChipButton
-              action={() => getCard(setPlayerHand)}
+              action={() => drawCard("player")}
               pressedKeys={pressedKeys}
               buttonKey={"1"}
               content={"SPLIT"}
               color="blue"
             />            
           )} */}
-          {/* {gameState === "cardplay" && (
+          {bankBalance >= betTotal && (
             <ChipButton
-              action={() => getCard(setPlayerHand)}
+              action={() => takeDouble()}
               pressedKeys={pressedKeys}
               buttonKey={"2"}
               content={"DOUBLE"}
@@ -54,13 +59,13 @@ function CardPlay({ state, dispatch }){
           )}
           {gameState === "cardplay" && (
             <ChipButton
-              action={() => getCard(setPlayerHand)}
+              action={() => drawCard("player")}
               pressedKeys={pressedKeys}
               buttonKey={"3"}
               content={"STAND"}
               color="red"
             />            
-          )}*/}
+          )}
           {gameState === "cardplay" && (
             <ChipButton
               action={() => drawCard("player")}

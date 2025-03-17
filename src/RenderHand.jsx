@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import "../styles/cards.scss"
 
 function RenderHand({ hand }){
-  console.log("Rendering hand:",hand)
+  // console.log("Rendering hand:",hand)
 
   return (
     <div className="hand">

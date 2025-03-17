@@ -35,6 +35,16 @@ function useGameLogic(dispatch){
     dispatch({ type: "drawCard", payload: "dealer" });
   }
 
+  function takeDouble(){
+    dispatch ({ type: "doubleBet"})
+    dispatch({ type: "drawCard", payload: "player" });
+    // TODO: end player turn
+  }
+
+  function stand(){
+    // TODO: end player turn
+  }
+    
   function removeLastChip(){
     dispatch({ type: "removeChip"})
   }
@@ -46,7 +56,9 @@ function useGameLogic(dispatch){
     placeChip,
     removeLastChip,
     dealInitialHands,
-    drawCard
+    drawCard,
+    takeDouble,
+    stand
   })
 };
 

@@ -1,5 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { shuffledDeck } from "../assets/CardDeck"
+import getRandomPosition from "../assets/getRandomPosition"
 
 export const initialState = {
   gameState: "menu",
@@ -36,14 +37,17 @@ export function reducer(state, action) {
     case 'placeChip':
       return {
         ...state, 
-        bet: [...state.bet, action.payload],
-        bankBalance: state.bankBalance-action.payload
+        bet: [...state.bet, {value: action.payload, ...getRandomPosition()}],
+        bankBalance: state.bankBalance - action.payload
       }
 
     case 'removeChip':
+      if (state.bet.length === 0) return state;
+      const lastChipValue = state.bet[state.bet.length-1].value
+
       return {
         ...state,
-        bankBalance: state.bankBalance+state.bet[state.bet.length-1],
+        bankBalance: state.bankBalance + lastChipValue,
         bet: state.bet.slice(0,-1)
       }
 
@@ -60,6 +64,14 @@ export function reducer(state, action) {
         ...state,
         deck: newDeck,
         dealerHand: [...state.dealerHand, drawnCard]
+      }
+
+    case 'doubleBet':
+      const preDoubleBetTotal = state.bet.reduce((total, chip) => total + chip.value, 0)
+      return {
+        ...state, 
+        bet: [...state.bet, ...state.bet], // Double existing bet array
+        bankBalance: state.bankBalance - preDoubleBetTotal // Subtract existing bet again from total
       }
 
     case 'clearBet':

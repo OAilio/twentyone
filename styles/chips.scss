@@ -1,0 +1,55 @@
+@use "./_shared" as *;
+
+.chip-stack {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    // background-color: rgba($color: #000000, $alpha: 0.25);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    .chip {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: $medium;
+        font-size: $minimum;
+        border-radius: 100px;
+        min-height: 2.25rem;
+        min-width: 2.25rem;
+        color: $white;
+        // background-color: $red;
+        // box-shadow: 0px 1px 0px 0px $red_darkened;
+        // margin-left: -2.20rem;
+        overflow: hidden;
+        border: none;
+    }
+
+    & .green {
+        background-color: $green;
+        box-shadow: 0px 1px 0px 0px $green_darkened;
+    }
+
+    & .red {
+        background-color: $red;
+        box-shadow: 0px 1px 0px 0px $red_darkened;
+    }
+
+    & .blue {
+        background-color: $blue;
+        box-shadow: 0px 1px 0px 0px $blue_darkened;
+    }
+
+    & .white {
+        color: $blue;
+        background-color: $white;
+        box-shadow: 0px 1px 0px 0px $white_darkened;
+    }
+
+    // &:nth-child(n) {
+    //     z-index: calc(1000 - (n));
+    // }
+}

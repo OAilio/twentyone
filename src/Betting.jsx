@@ -14,7 +14,7 @@ function Betting({ state, dispatch }){
     return null;
   }
 
-  const betTotal = bet.reduce((total, chip) => total + chip, 0)
+  const betTotal = bet.reduce((total, chip) => total + chip.value, 0)
 
   return (
     <div className="game-container">
@@ -24,9 +24,11 @@ function Betting({ state, dispatch }){
       />
       <div className="betting-content">
         <h2>Please place a bet.</h2>
-        <TableElements 
+        <TableElements
+          state={state}
+          dispatch={dispatch}
           betTotal={betTotal}
-          gameState={gameState} 
+          gameState={gameState}
         />
         <span className={`deal ${betTotal > 0 ? "visible" : ""}`}>
           <PrimaryButton

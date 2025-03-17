@@ -16,17 +16,33 @@
             margin-bottom: 7rem;
         }
 
-        & .deal {
-            position: absolute;
-            visibility: hidden;
-            width: 21.5rem;
-            bottom: 0;
-            margin-bottom: calc(10vh + 8rem);
-
-            &.visible {
-                visibility:visible;
-            }
+        & .dealer-score {
+            font-family: $medium;
+            font-size: $small;
+            color: $white;
         }
+
+        & .player-score {
+            background-color: $white;
+            color: $blue;
+            font-size: $small;
+            font-family: $medium;
+            border-radius: 6px;
+            padding: 0.25rem 0.5rem;
+            // margin-top: 0.75rem;
+        }
+
+        // & .deal {
+        //     position: absolute;
+        //     visibility: hidden;
+        //     width: 21.5rem;
+        //     bottom: 0;
+        //     margin-bottom: calc(10vh + 8rem);
+
+        //     &.visible {
+        //         visibility:visible;
+        //     }
+        // }
 
         & .chip-options {
             @include options-container;
