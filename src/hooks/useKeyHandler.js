@@ -12,8 +12,9 @@ function useKeyHandler(state, dispatch){
     dealInitialHands, 
     removeLastChip, 
     drawCard,
-    takeDouble
-  } = useGameLogic(dispatch);
+    takeDouble,
+    stand
+  } = useGameLogic(state, dispatch);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -28,52 +29,61 @@ function useKeyHandler(state, dispatch){
       }
 
       switch (gameState) {
-      case "menu":
-        switch (event.key) {
-        case ("5"):
-          startGame()
-          break
-        case ("7"):
-          openInstructions()
-          break
-        case ("8"):
-          toggleSound()
-          break       
-        default:
-          break
-        }
-        break
-      
-      case "betting":
-        switch (event.key) {
-          case "1":
-            if (bankBalance >= 25) placeChip(25)
+        // Menu actions
+        case "menu":
+          switch (event.key) {
+          case ("5"):
+            startGame()
             break
-          case "2":
-            if (bankBalance >= 50) placeChip(50)
+          case ("7"):
+            openInstructions()
             break
-          case "3":
-            if (bankBalance >= 100) placeChip(100)
+          case ("8"):
+            toggleSound()
+            break       
+          default:
             break
-          case "4":
-            if (bankBalance >= 200) placeChip(200)
-            break
-          case "5":
-            if (bet.length > 0) dealInitialHands()
-            break
-          case "6":
-            if (bet.length > 0) removeLastChip()
           }
           break
-      case "cardplay":
-        switch (event.key) {
-          case "2":
-            takeDouble()
+        
+        // Betting actions
+        case "betting":
+          switch (event.key) {
+            case "1":
+              placeChip(25)
+              break
+            case "2":
+              placeChip(50)
+              break
+            case "3":
+              placeChip(100)
+              break
+            case "4":
+              placeChip(200)
+              break
+            case "5":
+              dealInitialHands()
+              break
+            case "6":
+              removeLastChip()
+              break
+            }
             break
-          case "4":
-            drawCard("player")
-            break
-        }
+
+        // Gameplay actions
+        case "cardplay":
+          switch (event.key) {
+            // 1 for split but not implemented
+            case "2":
+              takeDouble()
+              break
+            case "3":
+              stand()
+              break
+            case "4":
+              drawCard("player")
+              break
+          }
       }
     }
 
@@ -84,7 +94,7 @@ function useKeyHandler(state, dispatch){
       window.removeEventListener("keydown", handleKeyPress)
       window.removeEventListener("keyup", handleKeyRelease)
     };
-  },[gameState, startGame, returnMainMenu, bet, placeChip, bankBalance, openInstructions, dealInitialHands, removeLastChip, toggleSound, drawCard, dispatch, takeDouble])
+  },[gameState, startGame, returnMainMenu, bet, placeChip, bankBalance, openInstructions, dealInitialHands, removeLastChip, toggleSound, drawCard, dispatch, takeDouble, stand])
 }
 
 export default useKeyHandler;

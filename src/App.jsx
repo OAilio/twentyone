@@ -17,7 +17,7 @@ function App() {
   useKeyHandler(state, dispatch, pressedKeys, setPressedKeys);
 
   // Game/app logic hook (functions)
-  useGameLogic(dispatch);
+  useGameLogic(state, dispatch);
 
   return (
     <>

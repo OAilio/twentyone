@@ -1,5 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { shuffledDeck } from "../assets/CardDeck"
+import handTotal from "../assets/handTotal"
 import getRandomPosition from "../assets/getRandomPosition"
 
 export const initialState = {
@@ -11,7 +12,8 @@ export const initialState = {
   bet: [],
   dealerHand: [],
   playerHand: [],
-  deck: shuffledDeck
+  deck: shuffledDeck(),
+  result: null
 }
 
 export function reducer(state, action) {
@@ -55,6 +57,7 @@ export function reducer(state, action) {
     case 'drawCard':
       const newDeck = [...state.deck]
       const drawnCard = newDeck.pop()
+      console.log("Adding card:", drawnCard)
       return action.payload === "player"
       ? {
         ...state,
@@ -64,7 +67,8 @@ export function reducer(state, action) {
       : {
         ...state,
         deck: newDeck,
-        dealerHand: [...state.dealerHand, drawnCard]
+        dealerHand: [...state.dealerHand, drawnCard],
+        dealerHandTotal: state.dealerHandTotal+handTotal([drawnCard])
       }
 
     case 'doubleBet':
@@ -87,7 +91,10 @@ export function reducer(state, action) {
     case 'resetBankBalance':
       return {...state, bankBalance: 1000}
     
-      default:
-        return state
+    case 'resetAll':
+      return {...initialState, deck: shuffledDeck()} // Reshuffle deck
+
+    default:
+      return state
   }
 }

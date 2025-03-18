@@ -7,7 +7,7 @@ import useGameLogic from "./hooks/useGameLogic";
 import "../styles/betting.scss"
 
 function Betting({ state, dispatch }){
-  const { placeChip, dealInitialHands } = useGameLogic(dispatch);
+  const { placeChip, dealInitialHands } = useGameLogic(state, dispatch);
   const { gameState, pressedKeys, bankBalance, bet} = state;
 
   if (gameState !== "betting") {

@@ -9,7 +9,7 @@ import ChipButton from "./ChipButton";
 import "../styles/mainMenu.scss"
 
 function MainMenu({ state, dispatch }){
-  const { startGame, openInstructions, toggleSound } = useGameLogic(dispatch);
+  const { startGame, openInstructions, toggleSound } = useGameLogic(state, dispatch);
   const { gameState, soundState, pressedKeys } = state;
 
   if (gameState !== "menu"){

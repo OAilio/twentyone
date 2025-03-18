@@ -1,4 +1,7 @@
 export default function handTotal(hand){
+  if (!hand) {
+    return null
+  }
   let value = 0
   let aceCount = 0
   const tenRanks = ['J', 'Q', 'K']

@@ -6,7 +6,7 @@ import "../styles/buttons.scss"
 
 function EscapeButton({ state, dispatch }) {
   const { pressedKeys } = state;
-  const { returnMainMenu } = useGameLogic(dispatch);
+  const { returnMainMenu } = useGameLogic(state, dispatch);
 
   return (
     <button onClick={() => returnMainMenu()} className={`escape-button ${pressedKeys.includes("Escape") ? "keydown" : ""}`}>

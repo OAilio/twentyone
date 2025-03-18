@@ -6,21 +6,21 @@ import RenderHand from "./RenderHand";
 import useGameLogic from "./hooks/useGameLogic";
 import handTotal from "./assets/handTotal";
 import "../styles/cardplay.scss"
+import RoundResults from "./RoundResults";
 
 function CardPlay({ state, dispatch }){
   const { gameState, pressedKeys, bet, dealerHand, playerHand, bankBalance, playerTurn} = state;
-  const { drawCard, stand, takeDouble } = useGameLogic(dispatch);
+  const { drawCard, stand, takeDouble } = useGameLogic(state, dispatch);
 
-  if (gameState !== "cardplay") {
-    return null;
-  }
-
-  const playerTotal = handTotal(playerHand)
-  const dealerTotal = handTotal(dealerHand)
-
+  const playerTotal = handTotal(state.playerHand)
+  const dealerTotal = handTotal(state.dealerHand)
   const betTotal = bet.reduce((total, chip) => total + chip.value, 0)
 
-  console.log("Playerturn:",playerTurn)
+
+  if (gameState !== "cardplay" && gameState !== "results") {
+    return null;
+  }
+  // console.log("Playerturn:",playerTurn)
 
   return (
     <div className="game-container">
@@ -86,6 +86,11 @@ function CardPlay({ state, dispatch }){
           )} 
         </div>
       </div>
+      <RoundResults 
+        state={state}
+        dispatch={dispatch}
+        betTotal={betTotal}
+      />
     </div>
   )
 };
