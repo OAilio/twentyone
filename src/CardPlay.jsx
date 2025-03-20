@@ -18,7 +18,6 @@ function CardPlay({ state, dispatch }){
 
   // console.log("Result:",result)
 
-
   if (gameState !== "cardplay" && gameState !== "results") {
     return null;
   }
@@ -34,6 +33,7 @@ function CardPlay({ state, dispatch }){
         <RenderHand 
           hand={dealerHand}
           owner="dealer"
+          state={state}
         />
         <span className="dealer-score">{dealerTotal}</span>
         <TableElements
@@ -46,6 +46,7 @@ function CardPlay({ state, dispatch }){
           <RenderHand 
             hand={playerHand}
             owner="player"
+            state={state}
           />
           <span className="player-score">{playerTotal}</span>          
         </div>
