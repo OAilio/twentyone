@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import { initialState, reducer } from "./hooks/twentyoneReducer";
 import useKeyHandler from "./hooks/useKeyHandler";
 import useGameLogic from "./hooks/useGameLogic";
@@ -10,11 +10,10 @@ import "../styles/_shared.scss"
 import CardPlay from "./CardPlay";
 
 function App() {
-  const [pressedKeys, setPressedKeys] = useState([])
   const [state, dispatch] = useReducer(reducer, initialState)
 
   // Key press hook (key controls)
-  useKeyHandler(state, dispatch, pressedKeys, setPressedKeys);
+  useKeyHandler(state, dispatch);
 
   // Game/app logic hook (functions)
   useGameLogic(state, dispatch);
@@ -23,21 +22,17 @@ function App() {
     <>
       <MainMenu
         state={state}
-        // pressedKeys={pressedKeys}
         dispatch={dispatch}
       />
       <Instructions 
         state={state}
-        // pressedKeys={pressedKeys}
         dispatch={dispatch}
       />
       <Betting 
         state={state}
-        // pressedKeys={pressedKeys}
         dispatch={dispatch}
       />
       <CardPlay
-        // pressedKeys={pressedKeys}
         state={state}
         dispatch={dispatch}
       />

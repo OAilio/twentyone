@@ -1,6 +1,5 @@
 /* eslint-disable no-case-declarations */
 import { shuffledDeck } from "../assets/CardDeck"
-import handTotal from "../assets/handTotal"
 import getRandomPosition from "../assets/getRandomPosition"
 
 export const initialState = {
@@ -57,7 +56,10 @@ export function reducer(state, action) {
     case 'drawCard':
       const newDeck = [...state.deck]
       const drawnCard = newDeck.pop()
-      console.log("Adding card:", drawnCard)
+      
+      // Rendering calls this statement twice but the actual logic works fine
+      console.log("Drew card:", drawnCard); 
+
       return action.payload === "player"
       ? {
         ...state,
@@ -68,7 +70,6 @@ export function reducer(state, action) {
         ...state,
         deck: newDeck,
         dealerHand: [...state.dealerHand, drawnCard],
-        dealerHandTotal: state.dealerHandTotal+handTotal([drawnCard])
       }
 
     case 'doubleBet':
@@ -78,19 +79,24 @@ export function reducer(state, action) {
         bet: [...state.bet, ...state.bet], // Double existing bet array
         bankBalance: state.bankBalance - preDoubleBetTotal // Subtract existing bet again from total
       }
+    
+    case "setResult":
+      return {...state, result: action.payload}
+
+    case 'payOutWins':
+      const betDoubled = state.bet.reduce((total, chip) => total + chip.value, 0)*2
+      return {...state, bankBalance: state.bankBalance + betDoubled}
+
+    case 'returnBet':
+      const betTotal = state.bet.reduce((total, chip) => total + chip.value, 0)
+      return {...state, bankBalance: state.bankBalance+betTotal}
 
     case 'changeTurn':
       return {...state, playerTurn: action.payload}
 
-    case 'clearBet':
-      return {...state, bet: []}
+    case 'resetRound':
+      return {...initialState, bankBalance: state.bankBalance, gameState: "betting", deck: shuffledDeck()}
 
-    case 'clearHands':
-      return {...state, playerHand: [], dealerHand: []}
-
-    case 'resetBankBalance':
-      return {...state, bankBalance: 1000}
-    
     case 'resetAll':
       return {...initialState, deck: shuffledDeck()} // Reshuffle deck
 

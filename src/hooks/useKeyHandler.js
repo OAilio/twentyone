@@ -1,8 +1,9 @@
 import { useEffect } from "react";
+import { debounce } from "lodash"
 import useGameLogic from "./useGameLogic";
 
 function useKeyHandler(state, dispatch){
-  const { gameState, bankBalance, bet} = state
+  const { gameState, bankBalance, bet, result} = state
   const { 
     startGame, 
     toggleSound, 
@@ -13,16 +14,21 @@ function useKeyHandler(state, dispatch){
     removeLastChip, 
     drawCard,
     takeDouble,
-    stand
+    stand,
+    dismissResult
   } = useGameLogic(state, dispatch);
 
   useEffect(() => {
-    const handleKeyPress = (event) => {
+    const handleKeyPress = debounce((event) => {
       dispatch({ type: "keyPress", payload: event.key})
-    }
+    }, 200)
 
-    const handleKeyRelease = (event) => {
+    const handleKeyRelease = debounce((event) => {
       dispatch({ type: "keyRelease", payload: event.key})
+
+      if (result) {
+        dismissResult()
+      }
 
       if (event.key === "Escape" && gameState !== "menu") {
         returnMainMenu()
@@ -84,8 +90,9 @@ function useKeyHandler(state, dispatch){
               drawCard("player")
               break
           }
+          break
       }
-    }
+    }, 200)
 
     window.addEventListener("keydown", handleKeyPress)
     window.addEventListener("keyup", handleKeyRelease)
@@ -94,7 +101,23 @@ function useKeyHandler(state, dispatch){
       window.removeEventListener("keydown", handleKeyPress)
       window.removeEventListener("keyup", handleKeyRelease)
     };
-  },[gameState, startGame, returnMainMenu, bet, placeChip, bankBalance, openInstructions, dealInitialHands, removeLastChip, toggleSound, drawCard, dispatch, takeDouble, stand])
+  },[
+    gameState, 
+    startGame, 
+    returnMainMenu, 
+    bet, placeChip, 
+    bankBalance, 
+    openInstructions, 
+    dealInitialHands, 
+    removeLastChip, 
+    toggleSound, 
+    drawCard, 
+    dispatch, 
+    takeDouble, 
+    stand, 
+    result, 
+    dismissResult
+  ])
 }
 
 export default useKeyHandler;

@@ -16,6 +16,8 @@ function CardPlay({ state, dispatch }){
   const dealerTotal = handTotal(state.dealerHand)
   const betTotal = bet.reduce((total, chip) => total + chip.value, 0)
 
+  // console.log("Result:",result)
+
 
   if (gameState !== "cardplay" && gameState !== "results") {
     return null;
@@ -31,6 +33,7 @@ function CardPlay({ state, dispatch }){
       <div className="cardplay-content">
         <RenderHand 
           hand={dealerHand}
+          owner="dealer"
         />
         <span className="dealer-score">{dealerTotal}</span>
         <TableElements
@@ -42,10 +45,10 @@ function CardPlay({ state, dispatch }){
         <div className="player-hand">
           <RenderHand 
             hand={playerHand}
+            owner="player"
           />
           <span className="player-score">{playerTotal}</span>          
         </div>
-
         <div className="chip-options">
           {/* SPLIT IS OUT OF SCOPE FOR NOW */}
           {/* {gameState === "cardplay" && (

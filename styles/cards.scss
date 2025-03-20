@@ -1,8 +1,8 @@
 @use "./_shared" as *;
 
 @keyframes card-appear {
-    0% { transform: translateX(15rem) translateY(-12rem); }
-	80% { transform: translateX(-1rem); }
+    0% { transform: translateX(15rem) translateY(-12rem) rotate(75deg); }
+	80% { transform: translateX(-1rem) rotate(-5deg) translateY(0.5rem); }
     100% { transform: translateX(0) translateY(0); }
 }
 
