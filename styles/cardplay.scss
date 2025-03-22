@@ -1,5 +1,16 @@
 @use "./_shared" as *;
 
+// @keyframes dealer-score-appear {
+//     0% { 
+//         transform: translateY(-50vh); 
+//         opacity: 0;
+//     }
+//     100% { 
+//         transform: translateY(0); 
+//         opacity: 1;
+//     }
+// }
+
 .game-container {
     @include body-container;
     & {
@@ -50,6 +61,13 @@
                 font-family: $medium;
                 font-size: $small;
                 color: $white;
+                opacity: 1;
+                transition: opacity 0.3s;
+                transition-delay: 1s;
+
+                &.hidden {
+                    opacity: 0;
+                }
             }
 
             // @media (orientation: landscape) {

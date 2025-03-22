@@ -143,6 +143,9 @@ function useGameLogic(state, dispatch){
 
     let drawnCards = [] // Array to keep track of drawn cards
     console.log("Starting dealer turn, dealer's total:", dealerTotal)
+
+    // Wait for the card flip animation to run
+    await new Promise(resolve => setTimeout(resolve, 1000))
   
     // Dealer must draw cards at 16 (or less)
     while (dealerTotal < 17) {
@@ -154,7 +157,7 @@ function useGameLogic(state, dispatch){
       // Send the action to reducer
       dispatch({ type: "drawCard", payload: "dealer" })
   
-      // Wait for the animation to run
+      // Wait for the card-appear animation to run
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       // Re-calculate dealer's total

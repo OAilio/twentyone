@@ -16,12 +16,9 @@ function CardPlay({ state, dispatch }){
   const dealerTotal = handTotal(state.dealerHand)
   const betTotal = bet.reduce((total, chip) => total + chip.value, 0)
 
-  // console.log("Result:",result)
-
   if (gameState !== "cardplay" && gameState !== "results") {
     return null;
   }
-  // console.log("Playerturn:",playerTurn)
 
   return (
     <div className="game-container">
@@ -36,7 +33,7 @@ function CardPlay({ state, dispatch }){
               owner="dealer"
               state={state}
             />
-            <span className="dealer-score">{dealerTotal}</span>
+            <span className={`dealer-score ${playerTurn ? "hidden" : ""}`}>{dealerTotal}</span>
           </div>
         <TableElements
           state={state}
