@@ -74,9 +74,7 @@ function useGameLogic(state, dispatch){
       dispatch({ type: "setGameState", payload: "cardplay"})
       // Dealer first because of visual outlook.
       dispatch({ type: "drawCard", payload: "dealer" }) 
-      setTimeout(() => {
-        dispatch({ type: "drawCard", payload: "player" })
-      },200)   
+      dispatch({ type: "drawCard", payload: "player" })  
       setTimeout(() => {
         dispatch({ type: "drawCard", payload: "dealer" })
       },400)

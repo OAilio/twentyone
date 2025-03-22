@@ -1,11 +1,11 @@
 @use "./_shared" as *;
 
 .table-elements {
-    position: absolute;
-    z-index: 0;
-    top: 38%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    // position: absolute;
+    // z-index: 0;
+    // top: 38%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,23 +26,37 @@
         border: none;
     }
     
-    & .table-circle {
-        height: 3rem;
-        width: 3rem;
-        border: solid 0.25rem $white;
-        border-radius: 100px;
-        // position: relative;
-    }
+    & .chip-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-    & .remove {
-        font-family: $medium;
-        color: transparent;
-        font-size: $minimum;
-
-        &.visible{
-            color: $white_darkened;
+        & .table-circle {
+            height: 3rem;
+            width: 3rem;
+            border: solid 0.25rem $white;
+            border-radius: 100px;
+            justify-self: center;
+            // margin-left: 3rem;
+            // position: relative;
+            
         }
+
+        & .remove {
+            font-family: $medium;
+            color: transparent;
+            font-size: $minimum;
+            line-height: 0.9;
+            position: absolute;
+            left: calc(50% + 5.25rem);
+            transform: translateX(-50%);
+
+            &.visible{
+                color: $white_darkened;
+            }
+        } 
     }
+
     
     & .bet-amount {
         margin-top: 0rem;

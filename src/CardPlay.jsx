@@ -30,19 +30,21 @@ function CardPlay({ state, dispatch }){
         dispatch={dispatch}
       />
       <div className="cardplay-content">
-        <RenderHand 
-          hand={dealerHand}
-          owner="dealer"
-          state={state}
-        />
-        <span className="dealer-score">{dealerTotal}</span>
+        <div className="hand-content">
+            <RenderHand 
+              hand={dealerHand}
+              owner="dealer"
+              state={state}
+            />
+            <span className="dealer-score">{dealerTotal}</span>
+          </div>
         <TableElements
           state={state}
           dispatch={dispatch}
           betTotal={betTotal}
           gameState={gameState}
         />
-        <div className="player-hand">
+        <div className="hand-content">
           <RenderHand 
             hand={playerHand}
             owner="player"

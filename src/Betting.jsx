@@ -18,12 +18,15 @@ function Betting({ state, dispatch }){
 
   return (
     <div className="game-container">
-      <EscapeButton 
-        state={state}
-        dispatch={dispatch}
-      />
+        <EscapeButton 
+          state={state}
+          dispatch={dispatch}
+        />
       <div className="betting-content">
-        <h2>Please place a bet.</h2>
+        <span className="info-text">
+          Please place a bet.
+        </span>
+        {/* <h2></h2> */}
         <TableElements
           state={state}
           dispatch={dispatch}

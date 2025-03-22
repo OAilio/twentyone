@@ -4,16 +4,24 @@
     @include body-container;
     & {
         height: 88vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
     & .betting-content {
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding-bottom: 12rem; // Account for actions buttons + info-text margin
 
-        & h2 {
+        & .info-text {
             color: $white;
             font-family: $medium;
-            margin-top: 3rem;
+            margin-bottom: 4rem;
+            font-size: $semiLarge;
+            height: 2rem;
+            // background-color: aqua;
             // margin-bottom: 7rem;
         }
 

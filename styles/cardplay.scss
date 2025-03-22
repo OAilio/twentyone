@@ -4,40 +4,77 @@
     @include body-container;
     & {
         height: 88vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 
     & .cardplay-content {
+        margin-top: 2rem;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding-bottom: 8rem; //Account for the option buttons
 
-        & h2 {
-            color: $white;
-            font-family: $medium;
-            margin-bottom: 7rem;
-        }
-
-        & .dealer-score {
-            font-family: $medium;
-            font-size: $small;
-            color: $white;
-        }
-
-        & .player-hand {
+        & .hand-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            // border: solid 4px red;
-            // margin-right: 1rem;
+            margin: 0.75rem auto;
+            // height: 7.5rem;
+            // padding-top: 0.5rem;
+            // background-color: aquamarine;
+            gap: 0.5rem;
 
-            .player-score {
+            @media screen and (min-height: 581px) {
+                margin: 1rem auto;
+                height: 8rem;
+            }
+
+            & .player-score {
                 background-color: $white;
                 color: $blue;
                 font-size: $small;
                 font-family: $medium;
                 border-radius: 6px;
                 padding: 0.25rem 0.5rem;
-            } 
+                // position: absolute;
+                // left: 50%;
+                // transform: translateX(calc(-50% - 7rem));
+                // bottom: 0;
+                // margin-bottom: calc(10vh + 6.25rem);
+            }
+
+            & .dealer-score {
+                font-family: $medium;
+                font-size: $small;
+                color: $white;
+            }
+
+            // @media (orientation: landscape) {
+            //     flex-direction:row-reverse;
+            //     gap: 1rem;
+
+            //     & .player-score,
+            //     & .dealer-score {
+            //         position: absolute;
+            //         left: 50%;
+            //         transform: translateX(calc(-50% - 8rem));
+            //     }
+            // }
+            @media screen and (max-height: 580px) {
+                flex-direction:row-reverse;
+                gap: 1rem;
+
+                & .player-score,
+                & .dealer-score {
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(calc(-50% - 8rem));
+                }
+            }
+    
         }
         
 

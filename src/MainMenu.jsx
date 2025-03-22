@@ -21,16 +21,16 @@ function MainMenu({ state, dispatch }){
   return (
     <>
       <div className="menu-container">
-        <div className="logo">
+        <div className="hero-content">
           <span><FontAwesomeIcon icon={faQuestion} className="icon"/></span>
           <h1>TWENTYONE</h1>
+          <PrimaryButton 
+            action={startGame}
+            pressedKeys={pressedKeys}
+            buttonKey={"5"}
+            content={"Play"}
+          />
         </div>
-        <PrimaryButton 
-          action={startGame}
-          pressedKeys={pressedKeys}
-          buttonKey={"5"}
-          content={"Play"}
-        />
         <div className="menu-options">
           <ChipButton
             action={openInstructions}
