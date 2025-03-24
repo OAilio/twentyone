@@ -1,4 +1,10 @@
 import handTotal from "../assets/handTotal"
+import chip from "../assets/chip.wav"
+import chipRemove from "../assets/chipRemove.wav"
+import cardDeal from "../assets/cardDeal.wav"
+import roundWin from "../assets/roundWin.wav"
+import roundLoss from "../assets/roundLoss.wav"
+import roundTie from "../assets/roundTie.wav"
 import { debounce } from "lodash"
 
 function useGameLogic(state, dispatch){
@@ -10,7 +16,19 @@ function useGameLogic(state, dispatch){
   // Toggle sound on|off
   function toggleSound(){
     dispatch({ type: "toggleSound" })
+
+    // play a sample sound when sound is turned on
+    // (If sound was off when function started execution)
+    if (!state.soundState) {
+      new Audio(chip).play()
+    }
   }
+
+  function playSound(sound) {
+    if (state.soundState) {
+      new Audio(sound).play()
+    }
+}
 
   // Open intructions page
   function openInstructions(){
@@ -28,11 +46,16 @@ function useGameLogic(state, dispatch){
     //Chip value cannot exceed bankBalance
     if (state.bankBalance >= chipValue) {
       dispatch({ type: "placeChip", payload: chipValue})
+      playSound(chip)
     } else {
       console.log("Insufficient funds!")
     }
   }
+
   // Draw one card to the target hand
+  // This was meant to be a re-usable function
+  // for all drawCard operations but
+  // JS is being JS so it has become tricky
   const drawCard = debounce((targetHand) => {
     // Local deck copy to keep track independent of state updates
     const localDeck = [...state.deck]
@@ -40,15 +63,17 @@ function useGameLogic(state, dispatch){
     // Add the card to local deck
     const drawnCard = localDeck.pop()
 
-    // Calculate hand total
+    // Calculate players hand total
     let totalAfterDraw = handTotal([...state.playerHand, drawnCard])
     console.log("total:",totalAfterDraw)
 
     // update state (also "play animation")
     dispatch({ type: "drawCard", payload: targetHand })
+    playSound(cardDeal)
     
-    // If exceeds 21, trigger round over
+    // If player exceeds 21, trigger round over
     if (totalAfterDraw > 21 && state.playerTurn) {
+      console.log("Player bust.")
       roundOverLogic(totalAfterDraw)
     }
 
@@ -69,24 +94,28 @@ function useGameLogic(state, dispatch){
       localPlayerHand.push(localDeck.pop())
       localDealerHand.push(localDeck.pop())
       localPlayerHand.push(localDeck.pop())
-      
 
       dispatch({ type: "setGameState", payload: "cardplay"})
       // Dealer first because of visual outlook.
-      dispatch({ type: "drawCard", payload: "dealer" }) 
-      dispatch({ type: "drawCard", payload: "player" })  
+      dispatch({ type: "drawCard", payload: "dealer" })
+      dispatch({ type: "drawCard", payload: "player" })
+      playSound(cardDeal)
+      setTimeout(() => {
+        playSound(cardDeal)
+      },300)  
       setTimeout(() => {
         dispatch({ type: "drawCard", payload: "dealer" })
-      },400)
+        playSound(cardDeal)
+      },600)
       setTimeout(() => {
         dispatch({ type: "drawCard", payload: "player" })
-      },600)
+        playSound(cardDeal)
+      },900)
 
-      console.log("Specific drawn cards:", localPlayerHand)
-      console.log("Dealer has initial hand:", localDealerHand)
+      console.log("Player's initial hand:", localPlayerHand)
+      // console.log("Dealer's initial hand:", localDealerHand)
       let player21 = false
       let dealer21 = false
-      console.log("local deck:",localDeck)
 
       setTimeout(() => {
         if (handTotal(localDealerHand) === 21){
@@ -102,26 +131,37 @@ function useGameLogic(state, dispatch){
   }
 
   function takeDouble(){
+    if (state.playerHand.length > 2){
+      console.log("Double can be only done with the initial two cards.")
+      return null
+    }
     const localDeck = [...state.deck]
     const drawnCard = localDeck.pop()
     console.log("Local deck no longer has", drawnCard)
 
     dispatch({ type: "doubleBet"})
-    dispatch({ type: "drawCard", payload: "player" })
-    dispatch({ type: "changeTurn", payload: false})
+    playSound(chip)
+    setTimeout(() => {
+      dispatch({ type: "drawCard", payload: "player" })
+      playSound(cardDeal)
+    },300)
+    setTimeout(() => {
+      dispatch({ type: "changeTurn", payload: false})
+    },300)
 
     let totalAfterDraw = handTotal([...state.playerHand, drawnCard])
 
     if (totalAfterDraw > 21 && state.playerTurn) {
       roundOverLogic(totalAfterDraw)
     } else {
-      setTimeout(() => dealerTurn(localDeck), 1000);
+      setTimeout(() => dealerTurn(localDeck), 1000)
     }    
   }
 
   function removeLastChip(){
     if (state.bet.length > 0 && state.gameState === "betting"){
       dispatch({ type: "removeChip"})
+      playSound(chipRemove)
     } else{
       console.log("Bet empty or round in progress")
     }  
@@ -131,7 +171,7 @@ function useGameLogic(state, dispatch){
     const localDeck = [...state.deck]
     console.log("Player stands.")
     dispatch({ type: "changeTurn", payload: false }) // End player's turn
-    setTimeout(() => dealerTurn(localDeck), 500); // Start dealer's turn after a short delay
+    setTimeout(() => dealerTurn(localDeck), 500) // Start dealer's turn after a short delay
   }
 
   async function dealerTurn(localDeck, localPlayerHand, localDealerHand, player21, dealer21) {
@@ -146,29 +186,33 @@ function useGameLogic(state, dispatch){
 
     // Wait for the card flip animation to run
     await new Promise(resolve => setTimeout(resolve, 1000))
+
+    console.log("Existing dealer hand:",preTurnDealerHand)
   
     // Dealer must draw cards at 16 (or less)
     while (dealerTotal < 17) {
-      console.log("-------------Loop starts--------")
-      console.log("Dealer's total is less than 17. Drawing card...");
+      console.log("---Dealer loop starts-------------")
+      console.log("Dealer's total is less than 17 at:", dealerTotal,"Drawing card...")
       const drawnCard = localDeck.pop() // Draw the card locally
       drawnCards.push(drawnCard) // Add the card to drawnCards
 
       // Send the action to reducer
+      // Re-using the drawCard became tricky for some reason
       dispatch({ type: "drawCard", payload: "dealer" })
+      playSound(cardDeal)
   
       // Wait for the card-appear animation to run
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       // Re-calculate dealer's total
-      console.log(preTurnDealerHand)
+      console.log("New card to total:",drawnCards[drawnCards.length - 1])
       dealerTotal = handTotal([...preTurnDealerHand, ...drawnCards])
       console.log("Dealer's new total:", dealerTotal)
       console.log("Drawn cards:", drawnCards.length)
     }
 
     // Log the end result
-    console.log("Dealer stands at total:", dealerTotal);
+    console.log("Dealer stands at total:", dealerTotal)
 
     // Initial dealer's total if not given as an argument
     let playerTotal = handTotal(state.playerHand) || handTotal(localPlayerHand)
@@ -189,29 +233,53 @@ function useGameLogic(state, dispatch){
     console.log("Player final total:",playerTotal)
     console.log("Dealer final total:",dealerTotal)
 
-    //TODO blackjackit
-
+    let result
+    let payout = false
+    
+    // Determine round result
     if (player21 && dealer21) {
+      result = "push"
       console.log("Double blackjack")
-      dispatch({ type: "setResult", payload: "push" })
       dispatch({ type: "returnBet" })
+      playSound(roundTie)
+
     } else if (dealer21 && playerTotal === 21){
-      dispatch({ type: "setResult", payload: "dealer21" })
+      result = "dealer21"
+      playSound(roundLoss)
+
     } else if (player21){
-      dispatch({ type: "setResult", payload: "player21" })
-      dispatch({ type: "payOutWins" })
+      result = "player21"
+      payout = true
+      playSound(roundWin)
+
     } else if (playerTotal > 21) {
-      dispatch({ type: "setResult", payload: "playerBust" })
+      result = "playerBust"
+      playSound(roundLoss)
+
     } else if (dealerTotal > 21){
-      dispatch({ type: "setResult", payload: "dealerBust" })
+      result = "dealerBust"
+      payout = true
+      playSound(roundWin)
+
     } else if (playerTotal > dealerTotal){
-      dispatch({ type: "setResult", payload: "playerWin" })
-      dispatch({ type: "payOutWins" })
+      result = "playerWin"
+      payout = true
+      playSound(roundWin)
+
     } else if (playerTotal === dealerTotal){
-      dispatch({ type: "setResult", payload: "push" })
+      result = "push"
       dispatch({ type: "returnBet" })
+      playSound(roundTie)
+
     } else {
-      dispatch({ type: "setResult", payload: "dealerWin" })
+      result = "dealerWin"
+      playSound(roundLoss)
+    }
+
+    dispatch({ type: "setResult", payload: result })
+
+    if (payout) {
+      dispatch({ type: "payOutWins" })
     }
   }
 
@@ -236,6 +304,6 @@ function useGameLogic(state, dispatch){
     roundOverLogic,
     dismissResult
   })
-};
+}
 
 export default useGameLogic

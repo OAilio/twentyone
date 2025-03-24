@@ -58,7 +58,7 @@ export function reducer(state, action) {
       const drawnCard = newDeck.pop()
       
       // Rendering calls this statement twice but the actual logic works fine
-      console.log("Drew card:", drawnCard); 
+      // console.log("Drew card:", drawnCard); 
 
       return action.payload === "player"
       ? {
@@ -95,10 +95,10 @@ export function reducer(state, action) {
       return {...state, playerTurn: action.payload}
 
     case 'resetRound':
-      return {...initialState, bankBalance: state.bankBalance, gameState: "betting", deck: shuffledDeck()}
+      return {...initialState, soundState: state.soundState, bankBalance: state.bankBalance, gameState: "betting", deck: shuffledDeck()}
 
     case 'resetAll':
-      return {...initialState, deck: shuffledDeck()} // Reshuffle deck
+      return {...initialState, soundState: state.soundState, deck: shuffledDeck()} // Reshuffle deck
 
     default:
       return state

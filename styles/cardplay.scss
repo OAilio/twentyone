@@ -1,16 +1,5 @@
 @use "./_shared" as *;
 
-// @keyframes dealer-score-appear {
-//     0% { 
-//         transform: translateY(-50vh); 
-//         opacity: 0;
-//     }
-//     100% { 
-//         transform: translateY(0); 
-//         opacity: 1;
-//     }
-// }
-
 .game-container {
     @include body-container;
     & {
@@ -33,9 +22,6 @@
             flex-direction: column;
             align-items: center;
             margin: 0.75rem auto;
-            // height: 7.5rem;
-            // padding-top: 0.5rem;
-            // background-color: aquamarine;
             gap: 0.5rem;
 
             @media screen and (min-height: 581px) {
@@ -50,11 +36,6 @@
                 font-family: $medium;
                 border-radius: 6px;
                 padding: 0.25rem 0.5rem;
-                // position: absolute;
-                // left: 50%;
-                // transform: translateX(calc(-50% - 7rem));
-                // bottom: 0;
-                // margin-bottom: calc(10vh + 6.25rem);
             }
 
             & .dealer-score {
@@ -70,17 +51,6 @@
                 }
             }
 
-            // @media (orientation: landscape) {
-            //     flex-direction:row-reverse;
-            //     gap: 1rem;
-
-            //     & .player-score,
-            //     & .dealer-score {
-            //         position: absolute;
-            //         left: 50%;
-            //         transform: translateX(calc(-50% - 8rem));
-            //     }
-            // }
             @media screen and (max-height: 580px) {
                 flex-direction:row-reverse;
                 gap: 1rem;
@@ -94,20 +64,6 @@
             }
     
         }
-        
-
-
-        // & .deal {
-        //     position: absolute;
-        //     visibility: hidden;
-        //     width: 21.5rem;
-        //     bottom: 0;
-        //     margin-bottom: calc(10vh + 8rem);
-
-        //     &.visible {
-        //         visibility:visible;
-        //     }
-        // }
 
         & .chip-options {
             @include options-container;

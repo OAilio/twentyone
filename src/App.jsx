@@ -2,12 +2,12 @@ import { useReducer } from "react";
 import { initialState, reducer } from "./hooks/twentyoneReducer";
 import useKeyHandler from "./hooks/useKeyHandler";
 import useGameLogic from "./hooks/useGameLogic";
-import BottomPanel from "./BottomPanel";
-import MainMenu from "./MainMenu";
-import Instructions from "./Instructions";
-import Betting from "./Betting";
+import BottomPanel from "./components/BottomPanel";
+import MainMenu from "./components/MainMenu";
+import Instructions from "./components/Instructions";
+import Betting from "./components/Betting";
 import "../styles/_shared.scss"
-import CardPlay from "./CardPlay";
+import CardPlay from "./components/CardPlay";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
