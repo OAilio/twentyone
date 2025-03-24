@@ -8,6 +8,7 @@
 		justify-content: center;
 		align-items: center;
         flex-direction: column;
+        // overflow-y: auto;
 	}
 
     & .instructions-content {
@@ -17,10 +18,20 @@
         text-align: left;
         color: $white;
         flex-direction: column;
+        font-size: $small;
+
+        & .header {
+            color: $white;
+            font-family: $bold;
+            // margin-bottom: 4rem;
+            font-size: $normal;
+            // height: 2rem;
+        }
 
         & .ins-text {
             margin-top: 1rem;
             font-family: $medium;
+            line-height: 1.1;
 
             & .end-note {
                 font-style: italic;

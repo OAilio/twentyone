@@ -1,4 +1,4 @@
-const suits = ['♥', '♣', '♦', '♠']
+const suits = ['\u2665', '\u2663', '\u2666', '\u2660'] // Unicodes of suits
 // const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10','J','Q', 'K', 'A']
 // TURN THIS ^^^ ON
 // small values for debugging

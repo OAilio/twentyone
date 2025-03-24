@@ -18,7 +18,7 @@ function Instructions({ state, dispatch }){
           dispatch={dispatch}
         />
         <div className="instructions-content">
-          <h1>Game Rules</h1>
+          <h2 className="header">Game Rules</h2>
           <div className="ins-text">
             <p>
               The game can be played by tapping
