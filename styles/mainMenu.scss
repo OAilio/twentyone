@@ -9,6 +9,10 @@
 		align-items: center;
 	}
 
+	& .logo {
+		height: 8rem;
+	}
+
 	& .hero-content {
 		display: flex;
 		flex-direction: column;

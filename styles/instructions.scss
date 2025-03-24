@@ -1,0 +1,33 @@
+@use "./_shared" as *;
+
+.instructions-container {
+    @include body-container;
+	& {
+		height: 88vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+        flex-direction: column;
+	}
+
+    & .instructions-content {
+        // border: solid 4px aqua;
+        width: 100%;
+        display: flex;
+        text-align: left;
+        color: $white;
+        flex-direction: column;
+
+        & .ins-text {
+            margin-top: 1rem;
+            font-family: $medium;
+
+            & .end-note {
+                font-style: italic;
+                font-family: $regular;
+                font-size: $minimum;
+                color: $white_darkened;
+            }
+        }
+    }
+}

@@ -14,13 +14,11 @@ function MainMenu({ state, dispatch }){
     return null
   }
 
-  
-
   return (
     <>
       <div className="menu-container">
         <div className="hero-content">
-          <span><FontAwesomeIcon icon={faQuestion} className="icon"/></span>
+          <img src="../../logobig.webp" className="logo"></img>
           <h1>TWENTYONE</h1>
           <PrimaryButton 
             action={startGame}

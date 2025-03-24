@@ -9,6 +9,7 @@
 }
 
 .primary-button {
+    cursor: pointer;
     background-color: $orange;
     color: $black;
     font-family: $bold;
@@ -34,6 +35,7 @@
 }
 
 .escape-button {
+    cursor: pointer;
     display: flex;
     position: absolute;
     align-self: flex-start;
@@ -61,9 +63,7 @@
 }
 
 .chip-button-container{
-    // background-image: url("./../wood-pattern.png");
     background-color: rgb(51, 29, 5);
-    // background-color: $black;
     box-shadow: 0px 4px 0px 0px rgb(34, 18, 1);
     background-size: cover;
     position: relative;
@@ -77,6 +77,7 @@
     }
 
     & .chip-button {
+        cursor: pointer;
         margin: 0.5rem;
         border-style: solid;
         border-width: 4px;

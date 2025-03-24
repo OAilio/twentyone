@@ -17,15 +17,16 @@ function RoundResults({ state, dispatch, betTotal }){
     }
 
   if (result === null){return null}
-  // console.log(result)
 
-  //TODO onClick resetRound
   return (
-    <div className={`result-container ${resultOptions[result][2]}`} onClick={() => dismissResult()}> 
-      <span className="result-header">{resultOptions[result][0]}</span>
-      <span className="result-bet">{resultOptions[result][1]}</span>
-      <span className="result-continue">Click anywhere / any key to continue</span>
+    <div className="full-width-bg" onClick={() => dismissResult()}>
+      <div className={`result-container ${resultOptions[result][2]}`}> 
+        <span className="result-header">{resultOptions[result][0]}</span>
+        <span className="result-bet">{resultOptions[result][1]}</span>
+        <span className="result-continue">Click anywhere / any key to continue</span>
+      </div>
     </div>
+
   )
 }
 

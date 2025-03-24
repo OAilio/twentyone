@@ -1,4 +1,5 @@
 import handTotal from "../assets/handTotal"
+import click from "../assets/click.wav"
 import chip from "../assets/chip.wav"
 import chipRemove from "../assets/chipRemove.wav"
 import cardDeal from "../assets/cardDeal.wav"
@@ -10,6 +11,7 @@ import { debounce } from "lodash"
 function useGameLogic(state, dispatch){
   // Start game from main menu
   function startGame() {
+    playSound(click)
     dispatch({ type: "setGameState", payload: "betting" })
   }
 
@@ -32,12 +34,14 @@ function useGameLogic(state, dispatch){
 
   // Open intructions page
   function openInstructions(){
+    playSound(click)
     dispatch({ type: "setGameState", payload: "instructions"})
   }
 
   // Return to main menu, resetting everything
   // TODO confirmation module?
   function returnMainMenu(){
+    playSound(click)
     dispatch({ type: "resetAll"})
   }
 
@@ -170,6 +174,7 @@ function useGameLogic(state, dispatch){
   function stand() {
     const localDeck = [...state.deck]
     console.log("Player stands.")
+    playSound(cardDeal)
     dispatch({ type: "changeTurn", payload: false }) // End player's turn
     setTimeout(() => dealerTurn(localDeck), 500) // Start dealer's turn after a short delay
   }
@@ -284,8 +289,8 @@ function useGameLogic(state, dispatch){
   }
 
   function dismissResult(){
+    // playSound(click)
     dispatch({ type: "resetRound" })
-
     // TODO pankki tyhjä
   }
 
