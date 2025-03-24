@@ -1,12 +1,18 @@
-const suits = ['\u2665', '\u2663', '\u2666', '\u2660'] // Unicodes of suits
+const suits = {
+  hearts: '/heart.webp',
+  clubs: '/club.webp',
+  diamonds: '/diamond.webp',
+  spades: '/spade.webp',
+};
+
 // const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10','J','Q', 'K', 'A']
 // TURN THIS ^^^ ON
 // small values for debugging
 const ranks = ['2', '3', '4', '5', '6', '7']
 // const ranks = ['K', 'A']
 
-const combinations = suits.flatMap((suit) =>
-  ranks.map((rank) => ({ suit, rank}))
+const combinations = Object.entries(suits).flatMap(([suit, image]) =>
+  ranks.map((rank) => ({ suit, rank, image }))
 )
 
 const shuffledDeck = () => {

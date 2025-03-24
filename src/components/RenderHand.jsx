@@ -9,19 +9,19 @@ function RenderHand({ hand, owner, state }){
       {hand.map((card, index) => (
         <div 
         className={`card ${owner} 
-          ${card.suit === '♥' || card.suit === '♦' ? "red" : ""}
+          ${card.suit === 'hearts' || card.suit === 'diamonds' ? "red" : ""}
           ${playerTurn && owner === "dealer" && index === 1 ? "backside" : ""}
           ${!playerTurn && owner === "dealer" && index === 1 ? "visible" : ""}
           `}
           key={`${card.suit}-${card.rank}`}>
             <div className="top-left-corner">
               <span className="rank">{card.rank}</span>
-              <span className="suit">{card.suit}</span>
+              <img className="suit" src={card.image} alt={card.suit}/>
             </div>
-            <span className="middle-suit">{card.suit}</span>
+            <img className="middle-suit" src={card.image} alt={card.suit}/>
             <div className="bottom-right-corner">
               <span className="rank">{card.rank}</span>
-              <span className="suit">{card.suit}</span>
+              <img className="suit" src={card.image} alt={card.suit}/>
             </div>            
           </div>        
       ))}

@@ -72,6 +72,14 @@
                 border: solid 0.25rem $white;
                 height: 5rem;
                 width: 3rem;
+
+                & .suit,
+                & .rank,
+                & .middle-suit {
+                    height: 0.75rem;
+                    padding: 0.125rem 0rem;
+                    visibility: hidden;
+                }
             }
 
             &.visible {
@@ -85,10 +93,10 @@
         }
 
         & .middle-suit {
-            font-size: 3rem;
+            height: 2.5rem;
             align-self: center;
             justify-self: center;
-            height: auto;
+            // height: auto;
             margin: auto
         }
 
@@ -98,6 +106,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
+            & .suit {
+                height: 0.75rem;
+                // padding: 0.125rem 0rem;
+            }
         }
 
         & .top-left-corner {
