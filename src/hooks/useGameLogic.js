@@ -76,9 +76,14 @@ function useGameLogic(state, dispatch){
     playSound(cardDeal)
     
     // If player exceeds 21, trigger round over
+    // If player equals 21, start dealer's turn
     if (totalAfterDraw > 21 && state.playerTurn) {
       console.log("Player bust.")
       roundOverLogic(totalAfterDraw)
+    } else if (totalAfterDraw === 21){
+      setTimeout(() => dispatch({ type: "changeTurn", payload: false }), 1000)
+      let localPlayerHand = [...state.playerHand, drawnCard]
+      setTimeout(() => dealerTurn(localDeck, localPlayerHand), 1000)
     }
 
   }, 300) // Debounce 300ms to stop card spam
@@ -159,12 +164,13 @@ function useGameLogic(state, dispatch){
     },300)
 
     // Calculate hand total
+    let localPlayerHand = [...state.playerHand, drawnCard]
     let totalAfterDraw = handTotal([...state.playerHand, drawnCard])
 
     if (totalAfterDraw > 21 && state.playerTurn) {
       roundOverLogic(totalAfterDraw)
     } else {
-      setTimeout(() => dealerTurn(localDeck), 1000)
+      setTimeout(() => dealerTurn(localDeck, localPlayerHand), 1000)
     }    
   }
 
@@ -193,8 +199,7 @@ function useGameLogic(state, dispatch){
     console.log("local total for dealer:",handTotal(localDealerHand))
     // Initial dealer's total
     let preTurnDealerHand = state.dealerHand.length > 0 ? state.dealerHand : localDealerHand
-    let dealerTotal = handTotal(state.dealerHand) || handTotal(localDealerHand)
-
+    let dealerTotal = handTotal(preTurnDealerHand)
     let drawnCards = [] // Array to keep track of drawn cards
     console.log("Starting dealer turn, dealer's total:", dealerTotal)
 
@@ -225,11 +230,12 @@ function useGameLogic(state, dispatch){
       console.log("Drawn cards:", drawnCards.length)
     }
 
+    // Initial players's total if not given as an argument
+    let playerTotal = handTotal(localPlayerHand) || handTotal(state.playerHand)
+    console.log("Player before game over:",playerTotal)
+
     // Log the end result
     console.log("Dealer stands at total:", dealerTotal)
-
-    // Initial dealer's total if not given as an argument
-    let playerTotal = handTotal(state.playerHand) || handTotal(localPlayerHand)
 
     console.log("Player21",player21)
     console.log("Dealer21",dealer21)
