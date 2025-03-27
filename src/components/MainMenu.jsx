@@ -42,20 +42,6 @@ function MainMenu({ state, dispatch }){
             content={soundState ? (<FontAwesomeIcon icon={faVolumeHigh}/>) : (<FontAwesomeIcon icon={faVolumeXmark}/>)}
             color="purple"
           />
-          {/* <ChipButton
-            action={toggleSound}
-            pressedKeys={pressedKeys}
-            buttonKey={"8"}
-            content={soundState ? (<FontAwesomeIcon icon={faVolumeHigh}/>) : (<FontAwesomeIcon icon={faVolumeXmark}/>)}
-            color="purple"
-          />
-          <ChipButton
-            action={toggleSound}
-            pressedKeys={pressedKeys}
-            buttonKey={"8"}
-            content={soundState ? (<FontAwesomeIcon icon={faVolumeHigh}/>) : (<FontAwesomeIcon icon={faVolumeXmark}/>)}
-            color="purple"
-          /> */}
         </div>  
       </div>
     </>

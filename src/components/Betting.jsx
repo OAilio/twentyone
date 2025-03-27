@@ -5,6 +5,7 @@ import TableElements from "./TableElements";
 import ChipButton from "./ChipButton"
 import useGameLogic from "../hooks/useGameLogic";
 import "../../styles/betting.scss"
+import OutOfCash from "./OutOfCashPopUp";
 
 function Betting({ state, dispatch }){
   const { placeChip, dealInitialHands } = useGameLogic(state, dispatch);
@@ -18,10 +19,15 @@ function Betting({ state, dispatch }){
 
   return (
     <div className="game-container">
-        <EscapeButton 
-          state={state}
-          dispatch={dispatch}
-        />
+      <OutOfCash
+        state={state}
+        dispatch={dispatch}
+        betTotal={betTotal}
+      />
+      <EscapeButton 
+        state={state}
+        dispatch={dispatch}
+      />
       <div className="betting-content">
         <span className="info-text">
           Please place a bet.
@@ -31,7 +37,6 @@ function Betting({ state, dispatch }){
           state={state}
           dispatch={dispatch}
           betTotal={betTotal}
-          gameState={gameState}
         />
         <span className={`deal ${betTotal > 0 ? "visible" : ""}`}>
           <PrimaryButton

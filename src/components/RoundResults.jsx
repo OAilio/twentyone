@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
+import PropTypes from "prop-types";
 import useGameLogic from "../hooks/useGameLogic";
 import "../../styles/resultsPopUp.scss"
 
 function RoundResults({ state, dispatch, betTotal }){
   const { result } = state
-  const { dismissResult } = useGameLogic(state, dispatch);
+  const { dismissResult } = useGameLogic(state, dispatch)
   const resultOptions = 
     {
       "dealerBust": ["Dealer bust!", `You win ${betTotal*2}`, "win"],
@@ -13,7 +13,7 @@ function RoundResults({ state, dispatch, betTotal }){
       "dealer21": ["Dealer 21!", `You lost ${betTotal}`, "loss"],
       "dealerWin": ["Dealer wins!", `You lost ${betTotal}`, "loss"],
       "playerWin": ["You win!",`You win ${betTotal*2}`, "win"],
-      "push": ["Push!", "Bet is returned.", "push"]
+      "push": ["Push!", "Bet is returned.", ""]
     }
 
   if (result === null){return null}
@@ -28,6 +28,12 @@ function RoundResults({ state, dispatch, betTotal }){
     </div>
 
   )
+}
+
+RoundResults.propTypes = {
+  betTotal: PropTypes.number.isRequired,
+  state: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
 }
 
 export default RoundResults

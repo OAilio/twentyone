@@ -1,7 +1,7 @@
 @use "./_shared" as *;
 
 @keyframes appear {
-    0% { transform: translate(-50%,-1000px); }
+    0% { transform: translate(-50%,-70vh); }
 	60% { transform: translate(-50%,10px); }
     100% { transform: translate(-50%, -40%); }
 }
@@ -14,26 +14,15 @@
     z-index: 1500;
 
     .result-container {
-        // cursor: pointer;
+        @include pop-up-container;
+        & { 
         z-index: 2000;
-        background-color: $white;
-        position: fixed;
         top: 40%;
         left: 50%;
         transform: translate(-50%, -40%);
-        color: $white;
-        border-radius: 6px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
-        line-height: 1;
-        gap: 0.25rem;
-        width: 18rem;
-        padding: 0.75rem 0rem;
         animation: appear 1s ease-in-out;
-    
+        }
+          
         &.win {
             border: solid 6px $green_darkened;
             background-color: $green;
@@ -42,11 +31,6 @@
         &.loss {
             border: solid 6px $red_darkened;
             background-color: $red;
-        }
-    
-        &.push {
-            border: solid 6px $navy;
-            background-color: $navy_darkened;
         }
     
         & .result-header {

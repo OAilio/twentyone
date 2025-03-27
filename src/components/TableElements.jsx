@@ -3,7 +3,7 @@ import "../../styles/tableElements.scss"
 import RenderChipStack from "./RenderChipStack"
 
 function TableElements({ betTotal, state, dispatch }){
-  const { gameState } = state;
+  const { gameState } = state
   return(
     <>
       <div className="table-elements">

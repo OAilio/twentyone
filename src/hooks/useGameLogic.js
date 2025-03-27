@@ -25,7 +25,7 @@ function useGameLogic(state, dispatch){
       new Audio(chip).play()
     }
   }
-
+  // Function to play sounds
   function playSound(sound) {
     if (state.soundState) {
       new Audio(sound).play()
@@ -121,6 +121,8 @@ function useGameLogic(state, dispatch){
       let player21 = false
       let dealer21 = false
 
+      // Player twentyone can only be tied
+      // --> Trigger game over without dealer turn
       setTimeout(() => {
         if (handTotal(localDealerHand) === 21){
           dealer21 = true
@@ -128,21 +130,24 @@ function useGameLogic(state, dispatch){
         if (handTotal(localPlayerHand) === 21){
           player21 = true
           dispatch({ type: "changeTurn", payload: false })
-          setTimeout(() => dealerTurn(localDeck, localPlayerHand, localDealerHand, player21, dealer21), 1000)
+          setTimeout(() => roundOverLogic(null, null, player21, dealer21), 1000)
         }        
       }, 2000)
     }
   }
 
+  // The double action
   function takeDouble(){
     if (state.playerHand.length > 2){
       console.log("Double can be only done with the initial two cards.")
       return null
     }
+    // Create local deck and draw card from it
     const localDeck = [...state.deck]
     const drawnCard = localDeck.pop()
     console.log("Local deck no longer has", drawnCard)
 
+    // Double existing bet and draw card
     dispatch({ type: "doubleBet"})
     playSound(chip)
     setTimeout(() => {
@@ -153,6 +158,7 @@ function useGameLogic(state, dispatch){
       dispatch({ type: "changeTurn", payload: false})
     },300)
 
+    // Calculate hand total
     let totalAfterDraw = handTotal([...state.playerHand, drawnCard])
 
     if (totalAfterDraw > 21 && state.playerTurn) {
@@ -162,6 +168,7 @@ function useGameLogic(state, dispatch){
     }    
   }
 
+  // Remove latest chip from stack
   function removeLastChip(){
     if (state.bet.length > 0 && state.gameState === "betting"){
       dispatch({ type: "removeChip"})
@@ -171,6 +178,7 @@ function useGameLogic(state, dispatch){
     }  
   }
 
+  // Stand action
   function stand() {
     const localDeck = [...state.deck]
     console.log("Player stands.")
@@ -179,6 +187,7 @@ function useGameLogic(state, dispatch){
     setTimeout(() => dealerTurn(localDeck), 500) // Start dealer's turn after a short delay
   }
 
+  // Dealer's automated turn
   async function dealerTurn(localDeck, localPlayerHand, localDealerHand, player21, dealer21) {
     console.log("state total for dealer:",handTotal(state.dealerHand))
     console.log("local total for dealer:",handTotal(localDealerHand))
@@ -229,6 +238,7 @@ function useGameLogic(state, dispatch){
     roundOverLogic(playerTotal, dealerTotal, player21, dealer21)
   }
 
+  // Handle game over
   async function roundOverLogic(playerTotal, dealerTotal, player21, dealer21){
     dispatch({ type: "changeTurn", payload: false })
 
@@ -288,10 +298,14 @@ function useGameLogic(state, dispatch){
     }
   }
 
+  // Dismiss result pop-up and start new round
   function dismissResult(){
-    // playSound(click)
     dispatch({ type: "resetRound" })
-    // TODO pankki tyhjä
+  }
+
+  // Reset player's bank balance
+  function resetBankBalance(){
+    dispatch({ type: "resetBankBalance" })
   }
 
   return ({ 
@@ -307,7 +321,8 @@ function useGameLogic(state, dispatch){
     stand,
     dealerTurn,
     roundOverLogic,
-    dismissResult
+    dismissResult,
+    resetBankBalance
   })
 }
 

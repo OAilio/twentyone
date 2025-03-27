@@ -13,10 +13,10 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   // Key press hook (key controls)
-  useKeyHandler(state, dispatch);
+  useKeyHandler(state, dispatch)
 
   // Game/app logic hook (functions)
-  useGameLogic(state, dispatch);
+  useGameLogic(state, dispatch)
 
   return (
     <>

@@ -3,7 +3,7 @@ import useGameLogic from "../hooks/useGameLogic";
 import "../../styles/chips.scss"
 
 const RenderChipStack = ({ state, dispatch }) => {
-  const { bet, gameState } = state;
+  const { bet, gameState } = state
   const { removeLastChip } = useGameLogic(state, dispatch);
   const chipColours = {25: "white", 50: "blue", 100: "red", 200: "green"}
 

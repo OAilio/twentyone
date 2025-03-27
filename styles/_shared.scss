@@ -59,7 +59,6 @@ $purple_darkened: rgba(109,24,130,1);
 @mixin body-container {
     max-width: 92%;
     margin: 0rem auto;
-    // padding-top: 2rem;
 
     @media screen and (min-width: 992px) {
         max-width: 60%;
@@ -85,10 +84,21 @@ $purple_darkened: rgba(109,24,130,1);
     margin-bottom: calc(10vh + 1rem);
     left: 50%;
     transform: translateX(-50%);
+}
 
-    @media screen and (min-width: 1145px) and (max-width: 1300px) {
-        // background-color: red;
-        // flex-direction: column;
-        // align-items: flex-start;
-    }
+@mixin pop-up-container {
+    color: $white;
+    border: solid 6px $navy;
+    background-color: $navy_darkened;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+    line-height: 1;
+    gap: 0.25rem;
+    width: 18rem;
+    border-radius: 6px;
+    padding: 0.75rem 0rem;
+    position: fixed;
 }
