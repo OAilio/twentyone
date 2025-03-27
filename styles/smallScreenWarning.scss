@@ -1,0 +1,40 @@
+@use "./_shared" as *;
+
+.screen-too-short {
+    background-color: $navy;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    height: 100%;
+    width: 110%;
+    z-index: 5000;
+    font-family: $medium;
+    font-size: $normal;
+    color: $white;
+    gap: 0.5rem;
+    visibility: hidden;
+
+    & .bold {
+        font-size: 2rem;
+        font-family: $bold;
+    }
+
+    & .icon-group {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+
+        & .icon {
+            font-size: 3rem;
+        } 
+    }
+
+
+
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+        visibility: visible;
+    }
+}

@@ -8,6 +8,7 @@ import Instructions from "./components/Instructions";
 import Betting from "./components/Betting";
 import "../styles/_shared.scss"
 import CardPlay from "./components/CardPlay";
+import SmallScreenWarning from "./components/SmallScreenWarning";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <>
+      <SmallScreenWarning />
       <MainMenu
         state={state}
         dispatch={dispatch}
