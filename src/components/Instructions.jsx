@@ -40,7 +40,7 @@ function Instructions({ state, dispatch }){
               <br></br><br></br>
               Try to beat the dealer and win big!
               <br></br><br></br>
-              <span className="end-note">NB! Blackjack insurance or splitting not implemented.</span>
+              <span className="end-note">NB! Insurance or splitting not implemented.</span>
             </p>
           </div> 
         </div>

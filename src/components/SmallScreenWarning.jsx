@@ -11,7 +11,7 @@ function SmallScreenWarning(){
         <FontAwesomeIcon icon={faRotateLeft} className="icon small"/>
       </div>
       <span>Your screen is a bit too short for the best experience.</span>
-      <span>Please rotate your device to portrait mode.</span>
+      <span>Please zoom out or rotate your device to portrait mode.</span>
     </div>
   )
 }
