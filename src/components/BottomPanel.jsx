@@ -8,7 +8,7 @@ function BottomPanel({ state }){
     <div className="panel-bg">
       <div className="content">
         {gameState === "menu" || gameState === "instructions" ?
-          (<p>Made by Okko Ailio</p>) : (<p>Bank: {bankBalance}</p>)
+          (<p>Made by <a href="https://www.okkoailio.fi" target="blank">Okko Ailio</a></p>) : (<p>Bank: {bankBalance}</p>)
         }                
       </div>
     </div>

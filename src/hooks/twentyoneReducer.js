@@ -41,7 +41,7 @@ export function reducer(state, action) {
     case 'toggleSound':
       return { ...state, soundState: !state.soundState }
     
-    // Bet a chip of given value
+    // Bet a chip of given value and give it coordinates to set in the bet circle
     case 'placeChip':
       return {
         ...state, 

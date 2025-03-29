@@ -1,4 +1,4 @@
-// AI generated function
+// AI generated function that gives the chip random location coordinates
 export default function getRandomPosition(){
   const radius = 0.5
   const angle = Math.random() * 2 * Math.PI
